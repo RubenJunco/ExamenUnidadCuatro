@@ -239,7 +239,7 @@
                             />
                             <div class="d-inline-block">
                               <h6 class="m-b-0">Mario Gragueda</h6>
-                              <p class="m-b-0">Q.I developer</p>
+                              <p class="m-b-0">Q.A developer</p>
                             </div>
                           </div>
                         </td>
