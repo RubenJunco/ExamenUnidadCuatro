@@ -1,4 +1,5 @@
 <?php 
+	include 'config.php';
 	session_start();
 
 	if (isset($_POST['action'])) {
@@ -14,7 +15,7 @@
 
 			case 'logout':
 				session_destroy();
-				header("Location: ../index.php");
+				header("Location: " . BASE_PATH . "index.php");
 			break;
 
 		}
@@ -47,9 +48,9 @@
 			if (isset($response->data)  && is_object($response->data)) {
 				$_SESSION['user_data'] = $response->data;
 
-				header("Location: ../home");
+				header("Location: " . BASE_PATH . "home");
 			}else{
-				header("Location: ../index.php?error=1");
+				header("Location:" . BASE_PATH . "index.php?error=1");
 			}
 
 		}
@@ -76,7 +77,7 @@
 			curl_close($curl);
 			echo $response;
 
-			header("Location: ../index.php");
+			header("Location: " . BASE_PATH . "index.php");
 		}
 	}
 
