@@ -14,7 +14,7 @@
 
 			case 'logout':
 				session_destroy();
-				header("Location: ../index.html");
+				header("Location: ../index.php");
 			break;
 
 		}
@@ -47,9 +47,9 @@
 			if (isset($response->data)  && is_object($response->data)) {
 				$_SESSION['user_data'] = $response->data;
 
-				header("Location: <?= BASE_PATH ?>home.php");
+				header("Location: ../home");
 			}else{
-				header("Location: <?= BASE_PATH ?>index.php?error=1");
+				header("Location: ../index.php?error=1");
 			}
 
 		}
@@ -76,7 +76,7 @@
 			curl_close($curl);
 			echo $response;
 
-			header("Location: <?= BASE_PATH ?>index.php");
+			header("Location: ../index.php");
 		}
 	}
 
