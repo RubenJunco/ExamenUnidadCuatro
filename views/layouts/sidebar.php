@@ -2,7 +2,7 @@
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="views/home.php" class="b-brand text-primary">
+      <a href="<?= BASE_PATH ?>home" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
         <img src="<?= BASE_PATH ?>/logo-dark.svg" alt="logo image" class="logo-lg" /> 
       </a>

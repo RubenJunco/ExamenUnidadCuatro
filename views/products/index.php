@@ -57,7 +57,13 @@
                 <div class="offcanvas-body p-0 sticky-xxl-top">
                   <div id="ecom-filter" class="show collapse collapse-horizontal">
                     <div class="ecom-filter">
+
+                    <div>
+                    <button type="button" class="btn btn-success">Add Product</button>
+                    </div>
+                    <hr>
                       <div class="card">
+                        
                               <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
                                 <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
                                   <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
@@ -95,7 +101,7 @@
                               </li>
                             </ul>
                           </div>
-                        </div>
+                        </hr>
                       </div>
                     </div>
                   </div>
@@ -107,7 +113,9 @@
                   <div class="col-sm-6 col-xl-4">
                     <div class="card product-card">
                       <div class="card-img-top">
-                        <a href="details/">
+
+                      
+                        <a href="details">
                           <img src="<?= BASE_PATH ?>assets/images/application/img-prod-1.jpg" alt="image" class="img-prod img-fluid" />
                         </a>
                         <div class="card-body position-absolute end-0 top-0">
@@ -118,7 +126,7 @@
                         </div>
                       </div>
                       <div class="card-body">
-                        <a href="details/">
+                        <a href="<?= BASE_PATH ?>products/details">
                           <p class="prod-content mb-0 text-muted">Apple watch -4</p>
                         </a>
                         <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
@@ -143,7 +151,9 @@
                           </div>
                           <div class="flex-grow-1 ms-3">
                             <div class="d-grid">
-                              <button class="btn btn-link-secondary btn-prod-card">Add to cart</button>
+                              <button type="button" class="btn btn-primary">Edit</button>
+                              <button type="button"  class="btn btn-danger">Delete</button>
+                              <button class="btn btn-warning" btn-prod-card">Add to cart</button>
                             </div>
                           </div>
                         </div>
@@ -177,7 +187,7 @@
       <div class="offcanvas-body">
         <div class="card product-card shadow-none border-0">
           <div class="card-img-top p-0">
-            <a href="ecom_product-details.html">
+            <a href="<?= BASE_PATH ?>details">
               <img src="<?= BASE_PATH ?>assets/images/application/img-prod-4.jpg" alt="image" class="img-prod img-fluid" />
             </a>
             <div class="card-body position-absolute end-0 top-0">
