@@ -2,74 +2,45 @@
 <nav class="pc-sidebar">
   <div class="navbar-wrapper">
     <div class="m-header">
-      <a href="../dashboard/index.html" class="b-brand text-primary">
+      <a href="views/home.php" class="b-brand text-primary">
         <!-- ========   Change your logo from here   ============ -->
-        <img src="<?= BASE_PATH ?>assets/images/logo-dark.svg" alt="logo image" class="logo-lg" /> 
+        <img src="<?= BASE_PATH ?>/logo-dark.svg" alt="logo image" class="logo-lg" /> 
       </a>
     </div>
     <div class="navbar-content">
       <ul class="pc-navbar">
         <li class="pc-item pc-caption">
           <label>
-            Navigation
+            Options
           </label>
           <i class="ph-duotone ph-gauge"></i>
         </li>
-        <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link">
+
+        <li class="pc-item">
+          <a href="<?= BASE_PATH ?>views/home.php" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-gauge"></i>
+              <i class="ph-duotone ph-house"></i>
             </span>
-            <span class="pc-mtext">Dashboard</span>
-            <span class="pc-arrow"><i data-feather="chevron-right"></i></span>
-            <span class="pc-badge">2</span>
+            <span class="pc-mtext">
+              House
+            </span>
           </a>
-          <ul class="pc-submenu">
-            <li class="pc-item"><a class="pc-link" href="../dashboard/index.html">Analytics</a></li>
-            <li class="pc-item"><a class="pc-link" href="../dashboard/affiliate.html">Affiliate</a></li>
-            <li class="pc-item"><a class="pc-link" href="../dashboard/finance.html">Finance</a></li>
-            <li class="pc-item"><a class="pc-link" href="../admins/helpdesk-dashboard.html">Helpdesk</a></li>
-            <li class="pc-item"><a class="pc-link" href="../dashboard/invoice.html">Invoice</a></li>
-          </ul>
         </li>
-        <li class="pc-item pc-hasmenu">
-          <a href="#!" class="pc-link"
-            ><span class="pc-micon"> <i class="ph-duotone ph-layout"></i></span><span class="pc-mtext">Layouts</span
-            ><span class="pc-arrow"><i data-feather="chevron-right"></i></span
-          ></a>
-          <ul class="pc-submenu">
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-horizontal.html">Horizontal</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-vertical.html">Vertical</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-vertical-tab.html">Vertical + Tab</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-tab.html">Tab</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-2-column.html">2 Column</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-big-compact.html">Big Compact</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-compact.html">Compact</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-moduler.html">Moduler</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-creative.html">Creative</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-detached.html">Detached</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-advanced.html">Advanced</a></li>
-            <li class="pc-item"><a class="pc-link" href="../demo/layout-extended.html">Extended</a></li>
-          </ul>
-        </li>
-        <li class="pc-item pc-caption">
-          <label>Widget</label>
-          <i class="ph-duotone ph-chart-pie"></i>
-        </li>
+        
         <li class="pc-item">
           <a href="<?= BASE_PATH ?>products/" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-projector-screen-chart"></i>
+              <i class="ph-duotone ph-flower-lotus"></i>
             </span>
             <span class="pc-mtext">
-              Productos
+              Products
             </span>
           </a>
         </li>
         <li class="pc-item">
           <a href="../widget/w_user.html" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-identification-card"></i>
+              <i class="ph-duotone ph-user-circle"></i>
             </span>
             <span class="pc-mtext">User</span>
           </a>
@@ -77,31 +48,30 @@
         <li class="pc-item">
           <a href="../widget/w_data.html" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-database"></i>
+              <i class="ph-duotone ph-identification-card"></i>
             </span>
-            <span class="pc-mtext">Data</span>
+            <span class="pc-mtext">Client</span>
           </a>
         </li>
         <li class="pc-item">
           <a href="../widget/w_chart.html" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-chart-pie"></i>
+              <i class="ph-duotone ph-textbox"></i>
             </span>
-            <span class="pc-mtext">Chart</span></a
+            <span class="pc-mtext">Coupons</span></a
           >
         </li>
-        <li class="pc-item pc-caption">
-          <label>Application</label>
-          <i class="ph-duotone ph-buildings"></i>
-        </li>
+        
         <li class="pc-item">
           <a href="../application/calendar.html" class="pc-link">
             <span class="pc-micon">
-              <i class="ph-duotone ph-calendar-blank"></i>
+              <i class="ph-duotone ph-shopping-cart"></i>
             </span>
-            <span class="pc-mtext">Calendar</span></a
+            <span class="pc-mtext">orders</span></a
           >
         </li>
+
+        <!--  
         <li class="pc-item">
           <a href="../application/chat.html" class="pc-link">
             <span class="pc-micon">
@@ -110,6 +80,7 @@
             <span class="pc-mtext">Chat</span></a
           >
         </li>
+
         <li class="pc-item pc-hasmenu">
           <a href="#!" class="pc-link">
             <span class="pc-micon">
@@ -342,7 +313,7 @@
           >
         </li>
         <li class="pc-item"
-          ><a href="../index.html" class="pc-link" target="_blank"
+          ><a href="../index.php" class="pc-link" target="_blank"
             ><span class="pc-micon"> <i class="ph-duotone ph-rocket"></i> </span>
             <span class="pc-mtext pc-icon-link">Landing <i class="ti ti-link text-primary f-14"></i></span>
           </a>
@@ -756,6 +727,7 @@
                       <span>Logout</span>
                     </a>
                   </li>
+                 -->
                 </ul>
               </div>
             </div>
