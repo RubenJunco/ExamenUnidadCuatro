@@ -20,6 +20,11 @@
                 $clientController = new clientController();
                 $clientController->getClient($id);
             break;
+
+            case 'get_clients':
+                $clientController = new clientController();
+                $clientController->getAll();
+            break;
 			
             case 'update_client':
                 $id = $_POST['id'];
