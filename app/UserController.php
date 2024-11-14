@@ -22,6 +22,11 @@
                 $userController = new UserController();
                 $userController->getUser($id);
             break;
+
+            case 'get_all':
+                $userController = new UserController();
+                $userController->getAll();
+            break;
 			
             case 'update_user':
                 $id = $_POST['id'];
@@ -118,7 +123,6 @@
         }
 
         public function updateUser($id, $name, $lastname, $email, $phone_number, $created, $password){
-
             $curl = curl_init();
             curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://crud.jonathansoto.mx/api/users',
@@ -143,9 +147,7 @@
                 'Authorization: Bearer' . $_SESSION['user_data']->token
             ),
             ));
-
             $response = curl_exec($curl);
-
             curl_close($curl);
             echo $response;
         }
