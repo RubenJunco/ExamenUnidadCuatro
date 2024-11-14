@@ -34,14 +34,7 @@
           </form>
         </div>
       </li>
-      <li class="pc-h-item d-none d-md-inline-flex">
-        <form class="form-search">
-          <i class="ph-duotone ph-magnifying-glass icon-search"></i>
-          <input type="search" class="form-control" placeholder="Search..." />
-
-          <button class="btn btn-search" style="padding: 0"><kbd>ctrl+k</kbd></button>
-        </form>
-      </li>
+      
     </ul>
   </div>
   <!-- [Mobile Media Block end] -->

@@ -85,7 +85,7 @@
       document.addEventListener("DOMContentLoaded", function() {
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('error')) {
-          Swal.fire("SweetAlert2 is working!", "Usuario o contraseña incorrectos", "error");
+          Swal.fire("Error en los datos!", "Usuario o contraseña incorrectos", "error");
         }
       });
     </script>

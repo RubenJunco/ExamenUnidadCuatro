@@ -38,7 +38,7 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="../widget/w_user.html" class="pc-link">
+          <a href="<?= BASE_PATH ?>users/user" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-user-circle"></i>
             </span>
@@ -46,24 +46,24 @@
           </a>
         </li>
         <li class="pc-item">
-          <a href="../widget/w_data.html" class="pc-link">
+          <a href="<?= BASE_PATH ?>clients/client" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-identification-card"></i>
             </span>
             <span class="pc-mtext">Client</span>
           </a>
         </li>
-        <li class="pc-item">
+       <!-- <li class="pc-item">
           <a href="../widget/w_chart.html" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-textbox"></i>
             </span>
             <span class="pc-mtext">Coupons</span></a
           >
-        </li>
+        </li> -->
         
         <li class="pc-item">
-          <a href="../application/calendar.html" class="pc-link">
+          <a href="<?= BASE_PATH ?>products/orders" class="pc-link">
             <span class="pc-micon">
               <i class="ph-duotone ph-shopping-cart"></i>
             </span>

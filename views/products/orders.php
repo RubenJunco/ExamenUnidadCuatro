@@ -33,13 +33,13 @@
               <div class="col-md-12">
                 <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                  <li class="breadcrumb-item"><a href="javascript: void(0)">E-commerce</a></li>
-                  <li class="breadcrumb-item" aria-current="page">Products</li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0)">Main</a></li>
+                  <li class="breadcrumb-item" aria-current="page">Orders</li>
                 </ul>
               </div>
               <div class="col-md-12">
                 <div class="page-header-title">
-                  <h2 class="mb-0">Products</h2>
+                  <h2 class="mb-0">Orders</h2>
                 </div>
               </div>
             </div>
@@ -58,92 +58,31 @@
                   <div id="ecom-filter" class="show collapse collapse-horizontal">
                     <div class="ecom-filter">
 
-                    <div>
-                    <button type="button" class="btn btn-success">Add Product</button>
-                    </div>
-                    <hr>
-                      <div class="card">
+                        <div class="card">
                         
-                              <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
-                                <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
-                                  <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
-                                  Categories
-                                </a>
-                                <div class="collapse show" id="filtercollapse2" >
-                                  <div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter1" value="option1" />
-                                      <label class="form-check-label" for="categoryfilter1">All</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter2" value="option2" />
-                                      <label class="form-check-label" for="categoryfilter2">Electronics</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter3" value="option3" />
-                                      <label class="form-check-label" for="categoryfilter3">Fashion</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter4" value="option1" />
-                                      <label class="form-check-label" for="categoryfilter4">Kitchen</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter5" value="option2" />
-                                      <label class="form-check-label" for="categoryfilter5">Books</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter6" value="option3" />
-                                      <label class="form-check-label" for="categoryfilter6">Toys</label>
-                                    </div>
-                                  </div>
-                                  <button type="button" class="btn btn-primary ms-2">Add Categories</button>
-                                </div>
-                              </li>
-                            </ul>
-
-                            
-                            <div>
-                            <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
+                        <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
                           <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
                             <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
-                            Cupons available
+                            Order by:
                           </a>
                           <div class="collapse show" id="filtercollapse2" >
                             <div>
                               <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option1" />
-                                <label class="form-check-label" for="categoryfilter1">DOOM</label>
+                                <input class="form-check-input" type="checkbox" id="categoryfilter1" value="option1" />
+                                <label class="form-check-label" for="categoryfilter1">Date</label>
                               </div>
                               <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option2" />
-                                <label class="form-check-label" for="categoryfilter2">ELLE</label>
+                                <input class="form-check-input" type="checkbox" id="categoryfilter2" value="option2" />
+                                <label class="form-check-label" for="categoryfilter2">Default</label>
                               </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option3" />
-                                <label class="form-check-label" for="categoryfilter3">POPIPOM</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option4" />
-                                <label class="form-check-label" for="categoryfilter4">ACCTION10</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option5" />
-                                <label class="form-check-label" for="categoryfilter5">SCHOOLBACK</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option6" />
-                                <label class="form-check-label" for="categoryfilter6">БОКЪ КУПОНЫ</label>
+                          
                               </div>
                             </div>
-                            <button type="button" class="btn btn-primary ms-2">Add Cupon</button>
                           </div>
+                          <hr>
                         </li>
-                        </div>
-                       </div>
-
-
-                          
-                        </hr>
+                      </ul>
+                    </div>
                       </div>
                     </div>
                   </div>
@@ -158,44 +97,47 @@
 
                       
                         <a href="details">
-                          <img src="<?= BASE_PATH ?>assets/images/application/img-prod-1.jpg" alt="image" class="img-prod img-fluid" />
+                          <img src="<?= BASE_PATH ?>assets/images/application/img-prod-3.jpg" alt="image" class="img-prod img-fluid" />
                         </a>
-                        <div class="card-body position-absolute end-0 top-0">
-                          <div class="form-check prod-likes">
-                            <input type="checkbox" class="form-check-input" />
-                            <i data-feather="heart" class="prod-likes-icon"></i>
-                          </div>
-                        </div>
+                        
                       </div>
                       <div class="card-body">
-                        <a href="<?= BASE_PATH ?>products/details">
-                          <p class="prod-content mb-0 text-muted">Apple watch -4</p>
+                        <h3>Informacion of the orther</h3>
+                        <a>
+                          <p class="prod-content mb-0 text-muted">Zapatos</p>
                         </a>
                         <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
-                          <h4 class="mb-0 text-truncate"
-                            ><b>$299.00</b> <span class="text-sm text-muted f-w-400 text-decoration-line-through">$399.00</span></h4
-                          >
-                          <div class="d-inline-flex align-items-center">
-                            <i class="ph-duotone ph-star text-warning me-1"></i>
-                            4.5 <small class="text-muted">/ 5</small>
-                          </div>
+                          <h4 class="mb-0 text-truncate">
+                             <b>$2369.00</b> 
+                            </h4>
+
                         </div>
+
+                        <div>
+                        <h4>Client</h4>
+                        <h5>bob</h5>
+                        </div>
+
+                        <div>
+                        <h4>Mailing address</h4>
+                        <h5>...</h5>
+                        <h5>...</h5>
+                        <h5>...</h5>
+                        <h5>...</h5>
+                        <h5>...</h5>
+                        </div>
+
+                        <div>
+                        <h4>Cupon:</h4>
+                        <h5>none</h5>
+                        </div>    
+
                         <div class="d-flex">
-                          <div class="flex-shrink-0">
-                            <a
-                              href="#"
-                              class="avtar avtar-s btn-link-secondary btn-prod-card"
-                              data-bs-toggle="offcanvas"
-                              data-bs-target="#productOffcanvas"
-                            >
-                              <i class="ph-duotone ph-eye f-18"></i>
-                            </a>
-                          </div>
+                          
                           <div class="flex-grow-1 ms-3">
                           <div class="d-flex gap-2">
                               <button type="button" class="btn btn-primary">Edit</button>
                               <button type="button"  class="btn btn-danger">Delete</button>
-                              <button class="btn btn-warning" btn-prod-card">Add to cart</button>
                             </div>
                           </div>
                         </div>

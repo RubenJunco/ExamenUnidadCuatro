@@ -8,9 +8,17 @@ RewriteRule ^home/?$ views/home.php
 RewriteRule ^products/?$ views/products/index.php 
 RewriteRule ^products/create/?$ views/products/create.php 
 #RewriteRule ^products/details/([^\/]+)/?$ views/products/details.php?slug=$1 [L]
-RewriteRule ^products/update/([^\/]+)/?$ views/products/update.php?slug=$1 [L]
-RewriteRule ^products/details/?$ views/products/details.php 
+#RewriteRule ^products/update/([^\/]+)/?$ views/products/update.php?slug=$1 [L]
 
+
+RewriteRule ^products/details/?$ views/products/details.php 
+RewriteRule ^products/orders/?$ views/products/orders.php 
+
+
+RewriteRule ^users/user/?$ views/users/user.php 
+RewriteRule ^users/usersDetails/?$ views/users/usersDetails.php 
+RewriteRule ^clients/client/?$ views/clients/client.php 
+RewriteRule ^clients/clientDetails/?$ views/clients/clientDetails.php 
 
 #RewriteCond %{REQUEST_URI} ^\/404/$
 #RewriteRule ^(.*)$ /views/errors/404.php [L]
