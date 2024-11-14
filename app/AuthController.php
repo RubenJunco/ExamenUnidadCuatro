@@ -2,6 +2,8 @@
 	include 'config.php';
 	session_start();
 
+	
+
 	if (isset($_POST['action'])) {
 		
 		switch ($_POST['action']) {
@@ -23,7 +25,7 @@
 
 	class AuthController {
 		public function access($correo,$contrasena){
-			
+			session_start();
 			$curl = curl_init();
 
 			curl_setopt_array($curl, array(
@@ -52,7 +54,6 @@
 			}else{
 				header("Location:" . BASE_PATH . "index.php?error=1");
 			}
-
 		}
 
 		public function logout(){
