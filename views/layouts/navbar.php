@@ -1,6 +1,6 @@
 <?php
 
-var_dump($_SESSION["user_data"]->name);
+
 
 ?>
 
@@ -284,7 +284,8 @@ var_dump($_SESSION["user_data"]->name);
                     </div>
                     <div class="flex-grow-1 mx-3">
                       <h5 class="mb-0"><?php echo ($_SESSION["user_data"]->name); ?></h5>
-                      <a class="link-primary" href="mailto:carson.darrin@company.io"></a>
+                      <a class="link-primary"><?php echo ($_SESSION["user_data"]->email); ?></a>
+
                     </div>
                     <span class="badge bg-primary">PRO</span>
                   </div>

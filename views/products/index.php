@@ -1,9 +1,7 @@
 <?php 
   
-  
-
   include "../../app/config.php";
-  require "../../app/ProductsController.php";
+  
 
 ?>
 <!doctype html>
@@ -105,7 +103,9 @@
                                       <label class="form-check-label" for="categoryfilter6">Toys</label>
                                     </div>
                                   </div>
-                                  <button type="button" class="btn btn-primary ms-2">Add Categories</button>
+                                  <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
+                                      Add Categories
+                                  </button>
                                 </div>
                               </li>
                             </ul>
@@ -144,7 +144,9 @@
                                 <label class="form-check-label" for="categoryfilter6">БОКЪ КУПОНЫ</label>
                               </div>
                             </div>
-                            <button type="button" class="btn btn-primary ms-2">Add Cupon</button>
+                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
+                                Add Cupon
+                            </button>
                           </div>
                         </li>
                         </div>
@@ -301,22 +303,22 @@
       </div>
     </div>
 
-
+              <!--Añadir producto-->
     <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="addModalLabel">Añadir Producto</h5>
+                              <h5 class="modal-title" id="addModalLabel">Add Product</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                               <form action="agregar.php" method="POST" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                  <label for="productName" class="form-label">Nombre del Producto</label>
+                                  <label for="productName" class="form-label">Name of the Product</label>
                                   <input type="text" class="form-control" id="productName" name="productName" placeholder="Ingresa el nombre del producto" required>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="productDescription" class="form-label">Descripción</label>
+                                  <label for="productDescription" class="form-label">Description</label>
                                   <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Descripción breve" required>
                                 </div>
                                 <div class="mb-3">
@@ -324,26 +326,90 @@
                                   <input type="text" class="form-control" id="productSlug" name="productSlug" placeholder="Precio del producto" required>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="productFeactures" class="form-label">Caracteristicas</label>
+                                  <label for="productFeactures" class="form-label">characteristics</label>
                                   <input type="text" class="form-control" id="productFeactures" name="productFeactures" placeholder="Precio del producto" required>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="productCategory" class="form-label">Categoría</label>
+                                  <label for="productCategory" class="form-label">Categories</label>
                                   <select class="form-control" id="productCategory" name="productCategory" required>
                                     
                                   </select>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="productImage" class="form-label">Imagen del Producto</label>
+                                  <label for="productImage" class="form-label">Image of Producto</label>
                                   <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
                                 </div>
-                                <button type="submit" class="btn btn-success">Añadir Producto</button>
+                                <button type="submit" class="btn btn-success">Add new products</button>
                                 <input type="hidden" name="addProduct">
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
+
+
+          <!-- agregar categorias-->      
+          <div class="modal fade" id="addModal2" tabindex="-1" aria-labelledby="addModal2Label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addModal2Label">Add Cupón</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="ruta_a_tu_controlador.php" method="POST">
+                <div class="modal-body">
+                  
+                    <div class="mb-3">
+                        <label for="cuponName" class="form-label">Name of Cupón</label>
+                        <input type="text" class="form-control" id="cuponName" name="cuponName" required>
+                    </div>
+                  
+                    <div class="mb-3">
+                        <label for="cuponDiscount" class="form-label">Discount (%)</label>
+                        <input type="number" class="form-control" id="cuponDiscount" name="cuponDiscount" min="1" max="100" required>
+                    </div>
+                  
+                    <div class="mb-3">
+                        <label for="cuponExpiry" class="form-label">Expiration date</label>
+                        <input type="date" class="form-control" id="cuponExpiry" name="cuponExpiry" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Coupon</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+          <!--agregar categoria-->
+
+          <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="ruta_a_tu_controlador_categorias.php" method="POST">
+                <div class="modal-body">
+                    
+                    <div class="mb-3">
+                        <label for="categoryName" class="form-label">Category Name</label>
+                        <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="categoryDescription" name="categoryDescription" rows="3" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Category</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     <!-- [ Main Content ] end -->
     
     <?php include "../layouts/footer.php" ?> 

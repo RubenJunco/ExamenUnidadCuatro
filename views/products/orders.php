@@ -120,11 +120,16 @@
 
                         <div>
                         <h4>Mailing address</h4>
-                        <h5>...</h5>
-                        <h5>...</h5>
-                        <h5>...</h5>
-                        <h5>...</h5>
-                        <h5>...</h5>
+                        <h4>Main street</h4>
+                        <h5>Santa Claudia</h5>
+                        <h4>Colony</h4>
+                        <h5>Americas</h5>
+                        <h4>Postal Code</h4>
+                        <h5>6969</h5>
+                        <h4>Numbre</h4>
+                        <h5>6123454795</h5>
+                        <h4>City</h4>
+                        <h5>La Mulege</h5>
                         </div>
 
                         <div>
@@ -136,7 +141,9 @@
                           
                           <div class="flex-grow-1 ms-3">
                           <div class="d-flex gap-2">
-                              <button type="button" class="btn btn-primary">Edit</button>
+                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                              Edit
+                          </button>
                               <button type="button"  class="btn btn-danger">Delete</button>
                             </div>
                           </div>
@@ -234,6 +241,71 @@
       </div>
     </div>
     <!-- [ Main Content ] end -->
+    <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="your_edit_product_controller.php" method="POST">
+                <div class="modal-body">
+                    <!-- Hidden field for the product ID -->
+                    <input type="hidden" id="productId" name="productId" value="">
+
+                    <!-- Field for the product name -->
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="productName" name="productName" required>
+                    </div>
+                    <!-- Field for CRUD -->
+                    <div class="mb-3">
+                        <label for="productCrud" class="form-label">CRUD</label>
+                        <input type="text" class="form-control" id="productCrud" name="productCrud" required>
+                    </div>
+                    <!-- Field for the client -->
+                    <div class="mb-3">
+                        <label for="productClient" class="form-label">Client</label>
+                        <input type="text" class="form-control" id="productClient" name="productClient" required>
+                    </div>
+                    <!-- Field for the main street -->
+                    <div class="mb-3">
+                        <label for="mainStreet" class="form-label">Main Street</label>
+                        <input type="text" class="form-control" id="mainStreet" name="mainStreet" required>
+                    </div>
+                    <!-- Field for the colony -->
+                    <div class="mb-3">
+                        <label for="colony" class="form-label">Colony</label>
+                        <input type="text" class="form-control" id="colony" name="colony" required>
+                    </div>
+                    <!-- Field for the postal code -->
+                    <div class="mb-3">
+                        <label for="postalCode" class="form-label">Postal Code</label>
+                        <input type="text" class="form-control" id="postalCode" name="postalCode" required>
+                    </div>
+                    <!-- Field for the number -->
+                    <div class="mb-3">
+                        <label for="number" class="form-label">Number</label>
+                        <input type="text" class="form-control" id="number" name="number" required>
+                    </div>
+                    <!-- Field for the city -->
+                    <div class="mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                    </div>
+                    <!-- Field for the coupons -->
+                    <div class="mb-3">
+                        <label for="cupons" class="form-label">Coupons</label>
+                        <input type="text" class="form-control" id="cupons" name="cupons">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     
     <?php include "../layouts/footer.php" ?> 
 
