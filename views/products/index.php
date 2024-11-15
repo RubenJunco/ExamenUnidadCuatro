@@ -1,6 +1,9 @@
 <?php 
+  
+  
 
   include "../../app/config.php";
+  require "../../app/ProductsController.php";
 
 ?>
 <!doctype html>
@@ -33,7 +36,7 @@
               <div class="col-md-12">
                 <ul class="breadcrumb">
                   <li class="breadcrumb-item"><a href="../dashboard/index.html">Home</a></li>
-                  <li class="breadcrumb-item"><a href="javascript: void(0)">E-commerce</a></li>
+                  <li class="breadcrumb-item"><a href="javascript: void(0)">Main</a></li>
                   <li class="breadcrumb-item" aria-current="page">Products</li>
                 </ul>
               </div>
@@ -56,11 +59,17 @@
               <div class="offcanvas-xxl offcanvas-start ecom-offcanvas" tabindex="-1" id="offcanvas_mail_filter">
                 <div class="offcanvas-body p-0 sticky-xxl-top">
                   <div id="ecom-filter" class="show collapse collapse-horizontal">
+                      
+              
                     <div class="ecom-filter">
-
                     <div>
-                    <button type="button" class="btn btn-success">Add Product</button>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">Add Product</button>
                     </div>
+
+                   
+
+
+
                     <hr>
                       <div class="card">
                         
@@ -167,39 +176,39 @@
                           </div>
                         </div>
                       </div>
+                      <?php foreach ($products as $product): ?>
                       <div class="card-body">
-                        <a href="<?= BASE_PATH ?>products/details">
-                          <p class="prod-content mb-0 text-muted">Apple watch -4</p>
+                        <a href="<?= BASE_PATH ?>products/details?id=<?= $product['id'] ?>">
+                          <p class="prod-content mb-0 text-muted"><?= htmlspecialchars($product['name']) ?></p>
                         </a>
                         <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
-                          <h4 class="mb-0 text-truncate"
-                            ><b>$299.00</b> <span class="text-sm text-muted f-w-400 text-decoration-line-through">$399.00</span></h4
-                          >
+                          <h4 class="mb-0 text-truncate">
+                            <b>$<?= number_format($product['price'], 2) ?></b>
+                            <?php if ($product['discounted_price']): ?>
+                              <span class="text-sm text-muted f-w-400 text-decoration-line-through">$<?= number_format($product['discounted_price'], 2) ?></span>
+                            <?php endif; ?>
+                          </h4>
                           <div class="d-inline-flex align-items-center">
                             <i class="ph-duotone ph-star text-warning me-1"></i>
-                            4.5 <small class="text-muted">/ 5</small>
+                            <?= number_format($product['rating'], 1) ?> <small class="text-muted">/ 5</small>
                           </div>
                         </div>
                         <div class="d-flex">
                           <div class="flex-shrink-0">
-                            <a
-                              href="#"
-                              class="avtar avtar-s btn-link-secondary btn-prod-card"
-                              data-bs-toggle="offcanvas"
-                              data-bs-target="#productOffcanvas"
-                            >
+                            <a href="#" class="avtar avtar-s btn-link-secondary btn-prod-card" data-bs-toggle="offcanvas" data-bs-target="#productOffcanvas">
                               <i class="ph-duotone ph-eye f-18"></i>
                             </a>
                           </div>
                           <div class="flex-grow-1 ms-3">
-                          <div class="d-flex gap-2">
+                            <div class="d-flex gap-2">
                               <button type="button" class="btn btn-primary">Edit</button>
-                              <button type="button"  class="btn btn-danger">Delete</button>
-                              <button class="btn btn-warning" btn-prod-card">Add to cart</button>
+                              <button type="button" class="btn btn-danger">Delete</button>
+                              <button class="btn btn-warning btn-prod-card">Add to cart</button>
                             </div>
                           </div>
                         </div>
                       </div>
+                    <?php endforeach; ?>
                     </div>
                   </div>
                           </div>
@@ -291,6 +300,50 @@
         </ul>
       </div>
     </div>
+
+
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="addModalLabel">Añadir Producto</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form action="agregar.php" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                  <label for="productName" class="form-label">Nombre del Producto</label>
+                                  <input type="text" class="form-control" id="productName" name="productName" placeholder="Ingresa el nombre del producto" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="productDescription" class="form-label">Descripción</label>
+                                  <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Descripción breve" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="productSlug" class="form-label">slug</label>
+                                  <input type="text" class="form-control" id="productSlug" name="productSlug" placeholder="Precio del producto" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="productFeactures" class="form-label">Caracteristicas</label>
+                                  <input type="text" class="form-control" id="productFeactures" name="productFeactures" placeholder="Precio del producto" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="productCategory" class="form-label">Categoría</label>
+                                  <select class="form-control" id="productCategory" name="productCategory" required>
+                                    
+                                  </select>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="productImage" class="form-label">Imagen del Producto</label>
+                                  <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
+                                </div>
+                                <button type="submit" class="btn btn-success">Añadir Producto</button>
+                                <input type="hidden" name="addProduct">
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
     <!-- [ Main Content ] end -->
     
     <?php include "../layouts/footer.php" ?> 

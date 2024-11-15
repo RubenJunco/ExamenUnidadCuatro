@@ -20,5 +20,6 @@ RewriteRule ^users/usersDetails/?$ views/users/usersDetails.php
 RewriteRule ^clients/client/?$ views/clients/client.php 
 RewriteRule ^clients/clientDetails/?$ views/clients/clientDetails.php 
 
+
 #RewriteCond %{REQUEST_URI} ^\/404/$
 #RewriteRule ^(.*)$ /views/errors/404.php [L]
