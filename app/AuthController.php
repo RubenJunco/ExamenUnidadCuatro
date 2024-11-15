@@ -1,6 +1,6 @@
 <?php 
 	include 'config.php';
-	
+
 	if (isset($_POST['action'])) {
 		
 		switch ($_POST['action']) {
@@ -22,9 +22,7 @@
 
 	class AuthController {
 		public function access($correo,$contrasena){
-			session_start();
 			$curl = curl_init();
-
 			curl_setopt_array($curl, array(
 				CURLOPT_URL => 'https://crud.jonathansoto.mx/api/login',
 				CURLOPT_RETURNTRANSFER => true,
@@ -45,6 +43,7 @@
 			$response = json_decode($response);
 
 			if (isset($response->data)  && is_object($response->data)) {
+				session_start();
 				$_SESSION['user_data'] = $response->data;
 
 				header("Location: " . BASE_PATH . "home");
@@ -52,6 +51,8 @@
 				header("Location:" . BASE_PATH . "index.php?error=1");
 			}
 		}
+
+		
 
 		public function logout(){
 			$curl = curl_init();
