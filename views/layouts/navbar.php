@@ -1,8 +1,4 @@
-<?php
 
-
-
-?>
 
 <!-- [ Header Topbar ] start -->
 <header class="pc-header">

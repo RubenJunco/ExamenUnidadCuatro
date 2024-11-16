@@ -1,7 +1,10 @@
 <?php 
   
-  include "../../app/config.php";
-  
+require_once '../../app/ProductsController.php'; // Asegúrate de ajustar la ruta al archivo
+
+$productsController = new ProductsController();
+$products = array_reverse($productsController->get());
+
 
 ?>
 <!doctype html>
@@ -22,7 +25,8 @@
     
     <!-- [ Pre-loader ] End --> 
     <?php include "../layouts/sidebar.php" ?> 
-    <?php include "../layouts/navbar.php" ?>
+    <?php include "../layouts/navbar.php"?>
+   
     
     <!-- [ Main Content ] start -->
     <div class="pc-container">
@@ -67,7 +71,7 @@
                    
 
 
-
+                    <!--Categorias-->
                     <hr>
                       <div class="card">
                         
@@ -112,6 +116,7 @@
 
                             
                             <div>
+                            <!-- Cupones -->  
                             <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
                           <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
                             <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
@@ -160,61 +165,23 @@
                   </div>
                 </div>
               </div>
-              <div class="ecom-content"> 
-                
-                <div class="row">
-                  <div class="col-sm-6 col-xl-4">
-                    <div class="card product-card">
-                      <div class="card-img-top">
-
-                      
-                        <a href="details">
-                          <img src="<?= BASE_PATH ?>assets/images/application/img-prod-1.jpg" alt="image" class="img-prod img-fluid" />
-                        </a>
-                        <div class="card-body position-absolute end-0 top-0">
-                          <div class="form-check prod-likes">
-                            <input type="checkbox" class="form-check-input" />
-                            <i data-feather="heart" class="prod-likes-icon"></i>
-                          </div>
+              <div class="container mt-4">
+        <div class="row g-4">
+            <?php foreach ($products as $product): ?>
+                <div class="col-md-4">
+                    <div class="card card-custom">
+                        <img src="<?= $product->cover ?>" class="card-img-top" alt="<?= $product->name ?>">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title"><?= ($product->name) ?></h5>
+                            <p class="card-text"><?= ($product->description) ?></p>
+                            <p class="mt-auto"><strong>Precio:</strong> $<?= ($product->slug) ?></p>
                         </div>
-                      </div>
-                      <?php foreach ($products as $product): ?>
-                      <div class="card-body">
-                        <a href="<?= BASE_PATH ?>products/details?id=<?= $product['id'] ?>">
-                          <p class="prod-content mb-0 text-muted"><?= htmlspecialchars($product['name']) ?></p>
-                        </a>
-                        <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
-                          <h4 class="mb-0 text-truncate">
-                            <b>$<?= number_format($product['price'], 2) ?></b>
-                            <?php if ($product['discounted_price']): ?>
-                              <span class="text-sm text-muted f-w-400 text-decoration-line-through">$<?= number_format($product['discounted_price'], 2) ?></span>
-                            <?php endif; ?>
-                          </h4>
-                          <div class="d-inline-flex align-items-center">
-                            <i class="ph-duotone ph-star text-warning me-1"></i>
-                            <?= number_format($product['rating'], 1) ?> <small class="text-muted">/ 5</small>
-                          </div>
-                        </div>
-                        <div class="d-flex">
-                          <div class="flex-shrink-0">
-                            <a href="#" class="avtar avtar-s btn-link-secondary btn-prod-card" data-bs-toggle="offcanvas" data-bs-target="#productOffcanvas">
-                              <i class="ph-duotone ph-eye f-18"></i>
-                            </a>
-                          </div>
-                          <div class="flex-grow-1 ms-3">
-                            <div class="d-flex gap-2">
-                              <button type="button" class="btn btn-primary">Edit</button>
-                              <button type="button" class="btn btn-danger">Delete</button>
-                              <button class="btn btn-warning btn-prod-card">Add to cart</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    <?php endforeach; ?>
                     </div>
-                  </div>
-                          </div>
-                        </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
                       </div>
                     </div>
                   </div>

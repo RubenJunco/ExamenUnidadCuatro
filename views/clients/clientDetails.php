@@ -1,6 +1,8 @@
 <?php 
 
   include "../../app/config.php";
+  session_start();
+
 
 ?>
 <!doctype html>
