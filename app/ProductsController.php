@@ -117,7 +117,7 @@ class ProductsController {
 
 		$j = 0;
 		foreach ($tags as $tag) {
-			$data['categories['.$j.']'] = intval($tag);
+			$data['tags['.$j.']'] = intval($tag);
 			$j++;
 		}
 
