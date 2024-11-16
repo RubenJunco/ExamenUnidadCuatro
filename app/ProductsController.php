@@ -15,8 +15,12 @@
 				$slug_var = $_POST['slug'];
 				$description_var = $_POST['description'];
 				$features_var = $_POST['features'];
+				$brand_id = $_POST['brand_id'];
+				$cover = $_FILES['cover']["tmp_name"];
+				$categories = $_POST['categories'];
+				$tags = $_POST['tags'];
 				$productsController = new ProductsController();
-				$productsController->create($name_var,$slug_var,$description_var,$features_var);
+				$productsController->create($name_var,$slug_var,$description_var,$features_var, $brand_id, $cover, $categories, $tags);
 			break; 
 
 			case 'update_producto':
@@ -24,9 +28,12 @@
 				$slug_var = $_POST['slug'];
 				$description_var = $_POST['description'];
 				$features_var = $_POST['features'];
+				$brand_id = $_POST['brand_id'];
 				$product_id = $_POST['product_id'];
+				$categories = $_POST['categories'];
+				$tags = $_POST['tags'];
 				$productsController = new ProductsController();
-				$productsController->update($name_var,$slug_var,$description_var,$features_var,$product_id);
+				$productsController->update($name_var,$slug_var,$description_var,$features_var, $brand_id, $product_id, $cover, $categories, $tags);
 			break; 
 
 			case 'delete_producto':
@@ -92,8 +99,28 @@ class ProductsController {
 		}
 	}
 
-	public function create($name_var,$slug_var,$description_var,$features_var){
-		
+	public function create($name_var,$slug_var,$description_var,$features_var, $brand_id, $cover, $categories, $tags){
+		$data = array(
+			'name' => $name_var,
+			'slug' => $slug_var,
+			'description' => $description_var,
+			'features' => $features_var,
+			'brand_id' => $brand_id,
+			'cover'=> $cover,
+		);
+
+		$i = 0;
+		foreach ($categories as $category) {
+			$data['categories['.$i.']'] = intval($category);
+			$i++;
+		}
+
+		$j = 0;
+		foreach ($tags as $tag) {
+			$data['categories['.$j.']'] = intval($tag);
+			$j++;
+		}
+
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
@@ -104,12 +131,7 @@ class ProductsController {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS => array(
-				'name' => $name_var,
-				'slug' => $slug_var,
-				'description' => $description_var,
-				'features' => $features_var
-			),
+			CURLOPT_POSTFIELDS => $data,
 			CURLOPT_HTTPHEADER => array(
 				'Authorization: Bearer '.$_SESSION['user_data']->token
 			),
@@ -125,7 +147,7 @@ class ProductsController {
 		}
 	}
 
-	public function update($name_var,$slug_var,$description_var,$features_var,$product_id){
+	public function update($name_var,$slug_var,$description_var,$features_var, $brand_id, $product_id, $categories, $tags){
 		$curl = curl_init();
 		curl_setopt_array($curl, array(
 			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
@@ -136,7 +158,15 @@ class ProductsController {
 			CURLOPT_FOLLOWLOCATION => true,
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => 'PUT',
-			CURLOPT_POSTFIELDS => 'name='.$name_var.'&slug='.$slug_var.'&description='.$description_var.'&features='.$features_var.'&id='.$product_id,
+			CURLOPT_POSTFIELDS => 
+				'name='.$name_var.
+				'&slug='.$slug_var.
+				'&description='.$description_var.
+				'&features='.$features_var.
+				'&brand_id='.$brand_id.
+				'&id='.$product_id.
+				'&categories%5B0%5D='.$categories.
+				'&tags%5B0%5D='.$tags,
 			CURLOPT_HTTPHEADER => array(
 				'Content-Type: application/x-www-form-urlencoded',
 				'Authorization: Bearer '.$_SESSION['user_data']->token
