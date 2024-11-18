@@ -141,7 +141,7 @@ class ProductsController {
 		$response = json_decode($response);
 
 		if (isset($response->code) && $response->code > 0) {
-			header("Location: " . BASE_PATH . "home");
+			header("Location: " . BASE_PATH . "products");
 		}else{
 			header("Location: " . BASE_PATH . "home?error=1");
 		}
