@@ -51,7 +51,7 @@
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer' . $_SESSION['user_data']->token
+                'Authorization: Bearer ' . $_SESSION['user_data']->token
             ),
             ));
             
@@ -73,7 +73,7 @@
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer' . $_SESSION['user_data']->token
+                'Authorization: Bearer ' . $_SESSION['user_data']->token
                 ),
             ));
     
@@ -105,7 +105,7 @@
                 'profile_photo_file'=> $photo_profile
             ),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer' . $_SESSION['user_data']->token
+                'Authorization: Bearer ' . $_SESSION['user_data']->token
                 ),
             ));
             $response = curl_exec($curl);
@@ -135,7 +135,7 @@
                 '&id='.$id,
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/x-www-form-urlencoded',
-                'Authorization: Bearer' . $_SESSION['user_data']->token
+                'Authorization: Bearer ' . $_SESSION['user_data']->token
             ),
             ));
             $response = curl_exec($curl);
@@ -155,7 +155,7 @@
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'DELETE',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer' . $_SESSION['user_data']->token,
+                'Authorization: Bearer '. $_SESSION['user_data']->token,
                 ),
             ));
             $response = curl_exec($curl);

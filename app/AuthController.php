@@ -67,7 +67,7 @@
 			CURLOPT_CUSTOMREQUEST => 'POST',
 			CURLOPT_POSTFIELDS => array(),
 			CURLOPT_HTTPHEADER => array(
-				'Authorization: Bearer' . $_SESSION['user_data']->token
+				'Authorization: Bearer ' . $_SESSION['user_data']->token
 			),
 			));
 
