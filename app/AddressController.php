@@ -79,6 +79,8 @@
             $response = curl_exec($curl);
             curl_close($curl);
             echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function getAddress($id) {
@@ -101,6 +103,8 @@
 
             curl_close($curl);
             echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function updateAddress($first_name, $last_name, $street_number, $postal_code, $city, $province, $phone_number, $is_billing, $client_id, $id) {
