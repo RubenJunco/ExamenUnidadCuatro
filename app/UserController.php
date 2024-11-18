@@ -16,18 +16,7 @@
                 $userController = new UserController();
                 $userController->newUser($name, $lastname, $email, $phone_number, $created, $password, $photo_profile);
 			break;
-
-            case 'get_user':
-                $id = $_POST['id'];
-                $userController = new UserController();
-                $userController->getUser($id);
-            break;
-
-            case 'get_all':
-                $userController = new UserController();
-                $userController->getAll();
-            break;
-			
+            
             case 'update_user':
                 $id = $_POST['id'];
                 $name = $_POST['name'];
@@ -68,7 +57,8 @@
             
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response; 
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function getUser($id) {
@@ -89,7 +79,8 @@
     
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function newUser($name, $lastname, $email, $phone_number, $created, $password, $photo_profile){

@@ -18,12 +18,6 @@
                 $addressController = new AddressController();
                 $addressController->newAddress($first_name, $last_name, $street_number, $postal_code, $city, $province, $phone_number, $is_billing, $client_id);
 			break;
-
-            case 'get_address':
-                $id = $_POST['id'];
-                $addressController = new AddressController();
-                $addressController->getAddress($id);
-            break;
 			
             case 'update_address':
                 $first_name = $_POST['first_name'];
@@ -83,7 +77,7 @@
             return $response;
         }
 
-        public function getAddress($id) {
+        public function getAddressByClient($id) {
             $curl = curl_init();
             curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://crud.jonathansoto.mx/api/addresses/'. $id,
@@ -100,9 +94,7 @@
             ));
 
             $response = curl_exec($curl);
-
             curl_close($curl);
-            echo $response;
             $response = json_decode($response, true);
             return $response;
         }

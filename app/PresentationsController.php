@@ -9,18 +9,6 @@
 	if (isset($_POST['action'])) {
 		
 		switch ($_POST['action']) {
-			
-			case 'get_presentations':
-                $id = $_POST['id'];
-                $presentationsController = new PresentationsController();
-                $presentationsController->getPresentations($id);
-            break;
-
-            case 'get_specific_presentation':
-                $id = $_POST['id'];
-                $presentationsController = new PresentationsController();
-                $presentationsController->getSpecificPresentation($id);
-            break;
 
             case 'new_presentation':
                 $description = $_POST['description'];
@@ -79,7 +67,8 @@ class PresentationsController {
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-        echo $response;
+        $response = json_decode($response, true);
+        return $response;
 	}
 
     public function getSpecificPresentation($id){
@@ -99,7 +88,8 @@ class PresentationsController {
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-        echo $response;
+        $response = json_decode($response, true);
+        return $response;
     }
 
     public function newPresentation($description, $code, $weight_in_grams, $status, $cover, $stock, $stock_min, $stock_max, $product_id, $amount){

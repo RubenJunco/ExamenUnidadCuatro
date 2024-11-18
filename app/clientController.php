@@ -14,17 +14,6 @@
                 $clientController = new clientController();
                 $clientController->newClient($name, $email, $password, $phone_number, $is_suscribed, $level_id);
 			break;
-
-            case 'get_client':
-                $id = $_POST['id'];
-                $clientController = new clientController();
-                $clientController->getClient($id);
-            break;
-
-            case 'get_clients':
-                $clientController = new clientController();
-                $clientController->getAll();
-            break;
 			
             case 'update_client':
                 $id = $_POST['id'];
@@ -65,7 +54,8 @@
             ));   
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response; 
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function getClient($id) {
@@ -85,7 +75,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function newClient($name, $email, $password, $phone_number, $is_suscribed, $level_id){

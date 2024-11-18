@@ -100,6 +100,8 @@
             $response = curl_exec($curl);
             curl_close($curl);
             echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function updateBrand($name, $description, $slug, $id){

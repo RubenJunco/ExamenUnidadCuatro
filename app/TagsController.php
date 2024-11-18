@@ -74,7 +74,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function getTag($id){
@@ -94,7 +95,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function updateTag($name, $description, $slug, $id){

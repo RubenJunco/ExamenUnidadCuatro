@@ -5,17 +5,6 @@
 	if (isset($_POST['action'])) {
 		
 		switch ($_POST['action']) {
-			
-			case 'get_all':
-				$categoryController = new CategoryController();
-				$categoryController->getAll();
-			break;
-
-			case 'get_category':
-				$id = $_POST['id'];
-				$categoryController = new CategoryController();
-				$categoryController->getCategory($id);
-			break;
 
 			case 'create_category':
 				$name_var =  $_POST['name'];
@@ -62,7 +51,6 @@
 			$response = curl_exec($curl);
 			$response = json_decode($response, true);
 			curl_close($curl);
-			echo $response;
 			return $response;
 		}
 
@@ -83,7 +71,6 @@
 			));
 			$response = curl_exec($curl);
 			curl_close($curl);
-			echo $response;
 			$response = json_decode($response, true);
 			return $response;
 		}

@@ -55,7 +55,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
         
         public function getOrdersBtwnDates($beginDate, $endDate){
@@ -75,7 +76,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
+            $response = json_decode($response, true);
+            return $response;
         }
         
         public function getOrder($id){
@@ -95,8 +97,8 @@
             ));
             $response = curl_exec($curl);
             curl_close($curl);
-            echo $response;
-
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function newOrder($folio, $total, $is_paid, $client_id, $address_id, $order_status_id, $payment_type_id, $coupon_id, $presentations0_id, $presentations0_quantity, $presentations1_id, $presentations1_quantity){
