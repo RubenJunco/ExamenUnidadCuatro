@@ -60,9 +60,10 @@
 			),
 			));
 			$response = curl_exec($curl);
-			$response = json_decode($response);
+			$response = json_decode($response, true);
 			curl_close($curl);
 			echo $response;
+			return $response;
 		}
 
 		public function getCategory($id){
@@ -83,6 +84,8 @@
 			$response = curl_exec($curl);
 			curl_close($curl);
 			echo $response;
+			$response = json_decode($response, true);
+			return $response;
 		}
 
 		public function newCategory($name, $description, $slug, $category_id){
