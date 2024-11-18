@@ -76,6 +76,8 @@ session_start();
                   </div>
                 </div>
               </div>
+
+
               <div class="ecom-content"> 
                 
                 <div class="row">
@@ -111,6 +113,9 @@ session_start();
                           </div>
                         </div>
                       </div>
+
+                      
+
                     </div>
                   </div>
                 </div>

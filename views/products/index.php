@@ -6,6 +6,64 @@ $productsController = new ProductsController();
 $products = array_reverse($productsController->get());
 
 
+
+
+// categorías
+function obtenerCategorias() {
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/categories',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_HTTPHEADER => array(
+          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
+      ),
+  ));
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return json_decode($response, true);
+}
+
+$categorias = obtenerCategorias();
+
+
+
+// cupones
+function obtenerCupones() {
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/coupons',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_HTTPHEADER => array(
+          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
+      ),
+  ));
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return json_decode($response, true);
+}
+
+$cupones = obtenerCupones();
+
+
+// tags
+function obtenerTags() {
+  $curl = curl_init();
+  curl_setopt_array($curl, array(
+      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/tags',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_HTTPHEADER => array(
+          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
+      ),
+  ));
+  $response = curl_exec($curl);
+  curl_close($curl);
+  return json_decode($response, true);
+}
+
+$tags = obtenerTags();
+
+
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -76,36 +134,17 @@ $products = array_reverse($productsController->get());
                       <div class="card">
                         
                               <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
-                                <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
-                                  <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
-                                  Categories
+                                <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2"data-bs-toggle="collapse" href="#filtercollapse2"> 
+                                  <div class="float-end" style="width: 300px; height: 10px;"><p class="ti ti-chevron-down ms-3 " ><p/></div> 
+                                  <h4>Categories</h4>
                                 </a>
                                 <div class="collapse show" id="filtercollapse2" >
                                   <div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter1" value="option1" />
-                                      <label class="form-check-label" for="categoryfilter1">All</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter2" value="option2" />
-                                      <label class="form-check-label" for="categoryfilter2">Electronics</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter3" value="option3" />
-                                      <label class="form-check-label" for="categoryfilter3">Fashion</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter4" value="option1" />
-                                      <label class="form-check-label" for="categoryfilter4">Kitchen</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter5" value="option2" />
-                                      <label class="form-check-label" for="categoryfilter5">Books</label>
-                                    </div>
-                                    <div class="form-check my-2 ms-2">
-                                      <input class="form-check-input" type="checkbox" id="categoryfilter6" value="option3" />
-                                      <label class="form-check-label" for="categoryfilter6">Toys</label>
-                                    </div>
+                                  <p>
+                                  <?php foreach ($categorias['data'] as $categoria): ?>
+                                          <option value="<?= $categoria['id'] ?>"><?= $categoria['name'] ?></option>
+                                        <?php endforeach; ?>
+                                  </p>
                                   </div>
                                   <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                                       Add Categories
@@ -120,34 +159,15 @@ $products = array_reverse($productsController->get());
                             <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
                           <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
                             <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
-                            Cupons available
+                            <h4>Cupons available</h4>
                           </a>
                           <div class="collapse show" id="filtercollapse2" >
                             <div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option1" />
-                                <label class="form-check-label" for="categoryfilter1">DOOM</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option2" />
-                                <label class="form-check-label" for="categoryfilter2">ELLE</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option3" />
-                                <label class="form-check-label" for="categoryfilter3">POPIPOM</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option4" />
-                                <label class="form-check-label" for="categoryfilter4">ACCTION10</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option5" />
-                                <label class="form-check-label" for="categoryfilter5">SCHOOLBACK</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="" value="option6" />
-                                <label class="form-check-label" for="categoryfilter6">БОКЪ КУПОНЫ</label>
-                              </div>
+                            <p>
+                                  <?php foreach ($cupones['data'] as $cupones): ?>
+                                          <option value="<?= $cupones['id'] ?>"><?= $cupones['name'] ?></option>
+                                        <?php endforeach; ?>
+                                  </p>
                             </div>
                             <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
                                 Add Cupon
@@ -278,37 +298,70 @@ $products = array_reverse($productsController->get());
                               <h5 class="modal-title" id="addModalLabel">Add Product</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                              <form action="agregar.php" method="POST" enctype="multipart/form-data">
-                                <div class="mb-3">
-                                  <label for="productName" class="form-label">Name of the Product</label>
-                                  <input type="text" class="form-control" id="productName" name="productName" placeholder="Ingresa el nombre del producto" required>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="productDescription" class="form-label">Description</label>
-                                  <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Descripción breve" required>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="productSlug" class="form-label">slug</label>
-                                  <input type="text" class="form-control" id="productSlug" name="productSlug" placeholder="Precio del producto" required>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="productFeactures" class="form-label">characteristics</label>
-                                  <input type="text" class="form-control" id="productFeactures" name="productFeactures" placeholder="Precio del producto" required>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="productCategory" class="form-label">Categories</label>
-                                  <select class="form-control" id="productCategory" name="productCategory" required>
-                                    
-                                  </select>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="productImage" class="form-label">Image of Producto</label>
-                                  <input type="file" class="form-control" id="productImage" name="productImage" accept="image/*" required>
-                                </div>
-                                <button type="submit" class="btn btn-success">Add new products</button>
-                                <input type="hidden" name="addProduct">
-                              </form>
+                              <div class="container mt-5">
+                                <h2 class="mb-4">Crear Producto</h2>
+                                <form action="../../app/ProductsController.php" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="action" value="crear_producto">
+
+                                    <!-- Nombre del Producto -->
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Nombre del Producto</label>
+                                        <input type="text" class="form-control" id="name" name="name" required>
+                                    </div>
+
+                                    <!-- Slug -->
+                                    <div class="mb-3">
+                                        <label for="slug" class="form-label">Slug</label>
+                                        <input type="text" class="form-control" id="slug" name="slug" required>
+                                    </div>
+
+                                    <!-- Descripción -->
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Descripción</label>
+                                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                                    </div>
+
+                                    <!-- Características -->
+                                    <div class="mb-3">
+                                        <label for="features" class="form-label">Características</label>
+                                        <textarea class="form-control" id="features" name="features" rows="3" required></textarea>
+                                    </div>
+
+                                    <!-- ID de Marca -->
+                                    <div class="mb-3">
+                                        <label for="brand_id" class="form-label">ID de Marca</label>
+                                        <input type="number" class="form-control" id="brand_id" name="brand_id" required>
+                                    </div>
+
+                                    <!-- Imagen de Portada -->
+                                    <div class="mb-3">
+                                        <label for="cover" class="form-label">Imagen de Portada</label>
+                                        <input type="file" class="form-control" id="cover" name="cover" accept="image/*" required>
+                                    </div>
+
+                                    <!-- Categorías -->
+                                    <div class="mb-3">
+                                      <label for="categories" class="form-label">Categoría</label>
+                                      <select class="form-control" id="categories" name="categories" required>
+                                        <?php foreach ($categorias['data'] as $categoria): ?>
+                                          <option value="<?= $categoria['id'] ?>"><?= $categoria['name'] ?></option>
+                                        <?php endforeach; ?>
+                                      </select>
+                                    </div>
+
+                                    <!-- Tags -->
+                                    <div class="mb-3">
+                                    <label for="tags" class="form-label">Tags</label>
+                                      <select class="form-control" id="tags" name="tags" required>
+                                        <?php foreach ($tags['data'] as $tags): ?>
+                                          <option value="<?= $tags['id'] ?>"><?= $tags['name'] ?></option>
+                                        <?php endforeach; ?>
+                                      </select>
+                                    </div>
+
+                                    <!-- Botón de Enviar -->
+                                    <button type="submit" class="btn btn-primary">Crear Producto</button>
+                                </form>
                             </div>
                           </div>
                         </div>
@@ -365,10 +418,7 @@ $products = array_reverse($productsController->get());
                         <label for="categoryName" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="categoryName" name="categoryName" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="categoryDescription" class="form-label">Description</label>
-                        <textarea class="form-control" id="categoryDescription" name="categoryDescription" rows="3" required></textarea>
-                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save Category</button>
