@@ -106,7 +106,7 @@ class ProductsController {
 			'description' => $description_var,
 			'features' => $features_var,
 			'brand_id' => $brand_id,
-			'cover'=> $cover,
+			$data['cover'] = curl_file_create($cover, mime_content_type($cover), basename($cover))
 		);
 
 		$i = 0;
