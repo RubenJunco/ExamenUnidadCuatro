@@ -1,66 +1,26 @@
 <?php 
-  
-require_once '../../app/ProductsController.php'; // Asegúrate de ajustar la ruta al archivo
+include '../../app/ProductsController.php';
+include '../../app/CategoryController.php';
+include '../../app/CuoponsController.php';
+include '../../app/TagsController.php';
+include '../../app/BrandController.php';
 
 $productsController = new ProductsController();
+$categoryController = new CategoryController();
+$cuoponsController = new CuoponsController();
+$tagsController = new TagController();
+$brandsController = new BrandController();
+
 $products = array_reverse($productsController->get());
 
+$categorias = $categoryController->getAll(); 
 
+$cupones = $cuoponsController->getAll();
 
+$tags = $tagsController->getAllTags();
 
-// categorías
-function obtenerCategorias() {
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/categories',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_HTTPHEADER => array(
-          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
-      ),
-  ));
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return json_decode($response, true);
-}
+$brands = $brandsController->getAll();
 
-$categorias = obtenerCategorias();
-
-
-
-// cupones
-function obtenerCupones() {
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/coupons',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_HTTPHEADER => array(
-          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
-      ),
-  ));
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return json_decode($response, true);
-}
-
-$cupones = obtenerCupones();
-
-
-// tags
-function obtenerTags() {
-  $curl = curl_init();
-  curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://crud.jonathansoto.mx/api/tags',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_HTTPHEADER => array(
-          'Authorization: Bearer 166|JXM8FRPR9CzOS3osaYaHblyQWFKihBDd6Fvdks9Q',
-      ),
-  ));
-  $response = curl_exec($curl);
-  curl_close($curl);
-  return json_decode($response, true);
-}
-
-$tags = obtenerTags();
 
 
 
@@ -131,50 +91,94 @@ $tags = obtenerTags();
 
                     <!--Categorias-->
                     <hr>
-                      <div class="card">
+                      <div class="card" style="width: 250px;">
                         
-                              <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
-                                <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2"data-bs-toggle="collapse" href="#filtercollapse2"> 
-                                  <div class="float-end" style="width: 300px; height: 10px;"><p class="ti ti-chevron-down ms-3 " ><p/></div> 
+                              <li class="list-group-item border-0 px-0 py-2" >  </li>
+                                <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2"data-bs-toggle="collapse" href="#filtercollapse"> 
+                               
+                                  <div class="float-end" ><p class="ti ti-chevron-down ms-3 "  style="width: 40px;"><p/></div> 
+                                  </a> </li>
                                   <h4>Categories</h4>
-                                </a>
-                                <div class="collapse show" id="filtercollapse2" >
+                                
+                                <div class="collapse show" id="filtercollapse" >
                                   <div>
-                                  <p>
-                                  <?php foreach ($categorias['data'] as $categoria): ?>
-                                          <option value="<?= $categoria['id'] ?>"><?= $categoria['name'] ?></option>
-                                        <?php endforeach; ?>
-                                  </p>
+                                  <select class="form-select">
+                                    <option>Todas las categorias</option>
+                                    <?php foreach ($categorias["data"] as $categoria): ?>
+                                      
+                                      <option value="<?= $categoria['id'] ?>"><?= $categoria['name'] ?></option>
+                                    <?php endforeach; ?>
+                               
+
+                                  </select>
                                   </div>
                                   <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
                                       Add Categories
                                   </button>
                                 </div>
-                              </li>
+                           
                             </ul>
-
                             
                             <div>
                             <!-- Cupones -->  
-                            <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
-                          <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
-                            <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
+                          <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse" >
                             <h4>Cupons available</h4>
                           </a>
-                          <div class="collapse show" id="filtercollapse2" >
+                          <div class="collapse show" id="filtercollapse" >
                             <div>
-                            <p>
-                                  <?php foreach ($cupones['data'] as $cupones): ?>
-                                          <option value="<?= $cupones['id'] ?>"><?= $cupones['name'] ?></option>
-                                        <?php endforeach; ?>
-                                  </p>
+                            <select class="form-select">
+                              <option>Todos los cupones</option>
+                              <?php foreach ($cupones["data"] as $cupon): ?>
+                                
+                                <option value="<?= $cupon['id'] ?>"><?= $cupon['name'] ?></option>
+                              <?php endforeach; ?>
+                            </select>
                             </div>
                             <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
                                 Add Cupon
                             </button>
                           </div>
-                        </li>
+                       
                         </div>
+
+                              <!--tags-->
+                        <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse" >
+                            <h4>Tags available</h4>
+                          </a>
+                          <div class="collapse show" id="filtercollapse" >
+                            <div>
+                            <select class="form-select">
+                              <option>Todos los Tags</option>
+                              <?php foreach ($tags["data"] as $tag): ?>
+                                
+                                <option value="<?= $tag['id'] ?>"><?= $tag['name'] ?></option>
+                              <?php endforeach; ?>
+                            </select>
+                            </div>
+                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
+                                Add tag
+                            </button>
+                          </div>
+
+
+                           <!--brans-->
+                        <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse" >
+                            <h4>Brans available</h4>
+                          </a>
+                          <div class="collapse show" id="filtercollapse">
+                            <div>
+                                <select class="form-select">
+                                    <option>Todos los Brands</option>
+                                    <?php foreach ($brands["data"] as $brand): ?>
+                                        <option value="<?= $brand['id'] ?>"><?= $brand['name'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
+                                Add brand
+                            </button>
+                          </div>
+
                        </div>
 
 
@@ -301,7 +305,7 @@ $tags = obtenerTags();
                               <div class="container mt-5">
                                 <h2 class="mb-4">Crear Producto</h2>
                                 <form action="../../app/ProductsController.php" method="POST" enctype="multipart/form-data">
-                                    <input type="hidden" name="action" value="crear_producto">
+                                   
 
                                     <!-- Nombre del Producto -->
                                     <div class="mb-3">
@@ -327,18 +331,25 @@ $tags = obtenerTags();
                                         <textarea class="form-control" id="features" name="features" rows="3" required></textarea>
                                     </div>
 
-                                    <!-- ID de Marca -->
+                                    <!-- ID de brand -->
                                     <div class="mb-3">
-                                        <label for="brand_id" class="form-label">ID de Marca</label>
-                                        <input type="number" class="form-control" id="brand_id" name="brand_id" required>
+                                        <label for="brand_id" class="form-label">Brand</label>
+                                        <select  type="number" class="form-select"  id="brand_id" name="brand_id" required >
+                                          <option>Todos los Brands</option>
+                                          <?php foreach ($brands["data"] as $brand): ?>
+                                              <option value="<?= $brand['id'] ?>"><?= $brand['name'] ?></option>
+                                          <?php endforeach; ?>
+                                        </select> 
                                     </div>
 
                                     <!-- Imagen de Portada -->
                                     <div class="mb-3">
                                         <label for="cover" class="form-label">Imagen de Portada</label>
+                                        
                                         <input type="file" class="form-control" id="cover" name="cover" accept="image/*" required>
+                                
+                                        
                                     </div>
-
                                     <!-- Categorías -->
                                     <div class="mb-3">
                                       <label for="categories" class="form-label">Categoría</label>
@@ -358,14 +369,16 @@ $tags = obtenerTags();
                                         <?php endforeach; ?>
                                       </select>
                                     </div>
-
+                                    
                                     <!-- Botón de Enviar -->
                                     <button type="submit" class="btn btn-primary">Crear Producto</button>
+                                    <input type="hidden" name="action" value="crear_producto">
                                 </form>
                             </div>
                           </div>
                         </div>
                       </div>
+
 
 
           <!-- agregar categorias-->      
