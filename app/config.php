@@ -1,5 +1,3 @@
-<?php 
-
-	define('BASE_PATH', 'http://localhost/');
-
+<?php
+	@define('BASE_PATH', 'http://localhost/');
 ?>
