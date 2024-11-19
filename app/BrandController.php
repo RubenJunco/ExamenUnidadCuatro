@@ -72,14 +72,9 @@
             ),
             ));
             $response = curl_exec($curl);
-            curl_close($curl);  
-            $response = json_decode($response);
-
-            if (isset($response->code) && $response->code > 0) {
-                return $response;
-            }else{
-                return [];
-            }
+            curl_close($curl);
+            $response = json_decode($response, true);
+            return $response;
         }
 
         public function getBrand($id){
