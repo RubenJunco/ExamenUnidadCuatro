@@ -117,7 +117,7 @@ $brands = $brandsController->getAll();
                                   </button>
                                 </div>
                            
-                            </ul>
+                            
                             
                             <div>
                             <!-- Cupones -->  
@@ -190,21 +190,128 @@ $brands = $brandsController->getAll();
                 </div>
               </div>
               <div class="container mt-4">
-        <div class="row g-4">
-            <?php foreach ($products as $product): ?>
-                <div class="col-md-4">
-                    <div class="card card-custom">
-                        <img src="<?= $product->cover ?>" class="card-img-top" alt="<?= $product->name ?>">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title"><?= ($product->name) ?></h5>
-                            <p class="card-text"><?= ($product->description) ?></p>
-                            <p class="mt-auto"><strong>Precio:</strong> $<?= ($product->slug) ?></p>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
+              <div class="row g-4">
+                  <?php foreach ($products as $product): ?>
+                      <div class="col-md-4">
+
+                     
+
+                          <div class="card card-custom">
+                          <a href="details/?slug=<?= urlencode($product->slug) ?>" class="text-decoration-none text-dark">
+                              <img src="<?= $product->cover ?>" class="card-img-top" alt="<?= $product->name ?>">
+                              </a>
+                              <div class="card-body d-flex flex-column">
+                                  <h5 class="card-title"><?= htmlspecialchars($product->name) ?></h5>
+                                  <p class="card-text"><?= htmlspecialchars($product->description) ?></p>
+                                  <button type="button" class="btn btn-primary w-50 py-3" data-bs-toggle="modal" data-bs-target="#editProductModal<?= $product->id ?>">Edit</button>
+
+                                   <!-- Formulario para eliminar el producto -->
+                                    <form method="POST" action="" style="display:inline-block;">
+                                        <input type="hidden" name="action" value="delete_producto">
+                                        <input type="hidden" name="product_id" value="<?= $product->id ?>">
+                                        <button type="submit" class="btn btn-danger w-50 py-3" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                                    </form>
+                              </div>
+                          </div>
+                          
+                      </div>
+
+                      <!-- Modal para edición -->
+                      <div class="modal fade" id="editProductModal<?= $product->id ?>" tabindex="-1" aria-hidden="true">
+                          <div class="modal-dialog">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title">Edit Product</h5>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <form action="../../app/ProductsController.php" method="POST" enctype="multipart/form-data">
+                                      <div class="modal-body">
+                                          <input type="hidden" name="id" value="<?= $product->id ?>">
+                                          <input type="hidden" name="action" value="update_producto">
+
+                                          <!-- Nombre del Producto -->
+                                          <div class="mb-3">
+                                              <label for="name<?= $product->id ?>" class="form-label">Name</label>
+                                              <input type="text" class="form-control" id="name<?= $product->id ?>" name="name" value="<?= htmlspecialchars($product->name) ?>">
+                                          </div>
+
+                                          <!-- Slug -->
+                                          <div class="mb-3">
+                                              <label for="slug<?= $product->id ?>" class="form-label">Slug</label>
+                                              <input type="text" class="form-control" id="slug<?= $product->id ?>" name="slug" value="<?= htmlspecialchars($product->slug) ?>">
+                                          </div>
+
+                                          <!-- Descripción -->
+                                          <div class="mb-3">
+                                              <label for="description<?= $product->id ?>" class="form-label">Description</label>
+                                              <textarea class="form-control" id="description<?= $product->id ?>" name="description" rows="3"><?= htmlspecialchars($product->description) ?></textarea>
+                                          </div>
+
+                                          <!-- Características -->
+                                          <div class="mb-3">
+                                              <label for="features<?= $product->id ?>" class="form-label">Characteristics</label>
+                                              <textarea class="form-control" id="features<?= $product->id ?>" name="features" rows="3"><?= htmlspecialchars($product->features) ?></textarea>
+                                          </div>
+
+                                          <!-- ID de Brand -->
+                                          <div class="mb-3">
+                                              <label for="brand_id<?= $product->id ?>" class="form-label">Brand</label>
+                                              <select class="form-select" id="brand_id<?= $product->id ?>" name="brand_id">
+                                                  <option value="">Select a Brand</option>
+                                                  <?php foreach ($brands["data"] as $brand): ?>
+                                                      <option value="<?= $brand['id'] ?>" <?= $product->brand_id == $brand['id'] ? 'selected' : '' ?>>
+                                                          <?= htmlspecialchars($brand['name']) ?>
+                                                      </option>
+                                                  <?php endforeach; ?>
+                                              </select>
+                                          </div>
+
+                                          <!-- Imagen de Portada -->
+                                          <div class="mb-3">
+                                              <label for="cover<?= $product->id ?>" class="form-label">Cover Image</label>
+                                              <input type="file" class="form-control" id="cover<?= $product->id ?>" name="cover" accept="image/*">
+                                              <small class="text-muted">Current: <?= htmlspecialchars($product->cover) ?></small>
+                                          </div>
+
+                                          <!-- Categorías -->
+                                          <div class="mb-3">
+                                              <label for="categories<?= $product->id ?>" class="form-label">Category</label>
+                                              <select class="form-control" id="categories<?= $product->id ?>" name="categories">
+                                                  <option value="">Select a Category</option>
+                                                  <?php foreach ($categorias['data'] as $categoria): ?>
+                                                      <option value="<?= $categoria['id'] ?>" <?= $product->categories == $categoria['id'] ? 'selected' : '' ?>>
+                                                          <?= htmlspecialchars($categoria['name']) ?>
+                                                      </option>
+                                                  <?php endforeach; ?>
+                                              </select>
+                                          </div>
+
+                                          <!-- Tags -->
+                                          <div class="mb-3">
+                                              <label for="tags<?= $product->id ?>" class="form-label">Tags</label>
+                                              <select class="form-control" id="tags<?= $product->id ?>" name="tags">
+                                                  <option value="">Select Tags</option>
+                                                  <?php foreach ($tags['data'] as $tag): ?>
+                                                      <option value="<?= $tag['id'] ?>" <?= $product->tags == $tag['id'] ? 'selected' : '' ?>>
+                                                          <?= htmlspecialchars($tag['name']) ?>
+                                                      </option>
+                                                  <?php endforeach; ?>
+                                              </select>
+                                          </div>
+
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="submit" class="btn btn-primary">Save Changes</button>
+                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                  <?php endforeach; ?>
+              </div>
+          </div>
+
 
                       </div>
                     </div>

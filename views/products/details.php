@@ -1,9 +1,23 @@
 <?php 
 
-  include "../../app/config.php";
+include "../../app/config.php";
+include "../../app/ProductsController.php";
 
 
-session_start();
+
+if (isset($_GET['slug'])) {
+    $slug = $_GET['slug'];
+
+    $ViewProduct = new ProductsController();
+
+    // Llama al método para obtener el producto por slug
+    $view = $ViewProduct->getBySlug($slug);
+
+    
+} else {
+    echo "El parámetro 'slug' no fue proporcionado.";
+    exit;
+}
 
 
 
@@ -60,109 +74,69 @@ session_start();
             <div class="card">
               <div class="card-body">
                 <div class="row">
-                  <div class="col-md-6">
-                    <div class="sticky-md-top product-sticky">
-                      <div id="carouselExampleCaptions" class="carousel slide ecomm-prod-slider" data-bs-ride="carousel">
-                        <div class="carousel-inner bg-light rounded position-relative">
-                          <div class="card-body position-absolute end-0 top-0">
-                            <div class="form-check prod-likes">
-                              <input type="checkbox" class="form-check-input" />
-                              
-                            </div>
-                          </div>
-                          <div class="card-body position-absolute bottom-0 end-0">
-                            <ul class="list-inline ms-auto mb-0 prod-likes">
-                              <li class="list-inline-item m-0">
-                                <a href="#" class="avtar avtar-xs text-white text-hover-primary">
-                                  <i class="ti ti-zoom-in f-18"></i>
-                                </a>
-                              </li>
-                              <li class="list-inline-item m-0">
-                                <a href="#" class="avtar avtar-xs text-white text-hover-primary">
-                                  <i class="ti ti-zoom-out f-18"></i>
-                                </a>
-                              </li>
-                              <li class="list-inline-item m-0">
-                                <a href="#" class="avtar avtar-xs text-white text-hover-primary">
-                                  <i class="ti ti-rotate-clockwise f-18"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          <div class="carousel-item active">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-1.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-2.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-3.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-4.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-5.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-6.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-7.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                          <div class="carousel-item">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-8.jpg" class="d-block w-100" alt="Product images" />
-                          </div>
-                        </div>
-                        <ol class="list-inline carousel-indicators position-relative product-carousel-indicators my-sm-3 mx-0">
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="list-inline-item w-25 h-auto active">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-1.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-2.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-3.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-4.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-5.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="5" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-6.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="6" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-7.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                          <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="7" class="list-inline-item w-25 h-auto">
-                            <img src="<?= BASE_PATH ?>assets/images/application/img-prod-8.jpg" class="d-block wid-50 rounded" alt="Product images" />
-                          </li>
-                        </ol>
-                      </div>
-                    </div>
-                  </div>
+                  
+
                   <div class="col-md-6">
                     <span class="badge bg-success f-14">In stock</span>
-                    <h5 class="my-3">Apple Watch SE Smartwatch (GPS, 40mm) (Heart Rate Monitoring)</h5>
-                    
-                    
-                   
 
+                    <div class="card-body">
+
+                    <img class="card-img-top" src="<?= $view -> cover ?>" alt="Product Image"> 
+                     
+                      <h5 class="card-title"><?= $view->name ?></h5>
+                      <p></p>
+                      <p class="card-text"><?= $view->description ?></p>
+                      <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">Key word</h5>
+                      <p class="card-text badge bg-primary"><?= $view->slug ?></p>
+                    </div>
+                    
+                    <hr>
+                   
                     <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">About this item</h5>
                     <ul>
-                      <li class="mb-2">Care Instructions: Hand Wash Only</li>
-                      <li class="mb-2">Fit Type: Regular</li>
-                      <li class="mb-2">Dark Blue Regular Women Jeans</li>
-                      <li class="mb-2">Fabric : 100% Cotton</li>
+                    <p class="card-text"><?= $view->features?></p>
                     </ul>
-                    <hr>
+
                     <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">Categories</h5>
                     <ul>
-                      <li class="mb-2">Shoes</li>
-                      <li class="mb-2">Footwear</li>
+                    <p class="card-text">
+                        <?php if (!empty($view->categories)): ?>
+                            <?php foreach ($view->categories as $category): ?>
+                                <?php if (isset($category->name)): ?>
+                                    <span class="badge bg-primary"><?= htmlspecialchars($category->name) ?></span>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <em>No hay categorías disponibles</em>
+                        <?php endif; ?>
+                    </p>
+
                     </ul>
+
+                    <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">Brands </h5>
+                    <ul>
+                    <p class="card-text">
+                        <p class="badge bg-primary"><?= $view->brand->name?></p>
+                    </p>
+                    </ul>
+
+                    <h5 class="mt-4 mb-sm-3 mb-2 f-w-500">Tags</h5>
+                    <ul>
+                    <p class="card-text">
+                        <?php if (!empty($view->tags)): ?>
+                            <?php foreach ($view->tags as $tag): ?>
+                                <?php if (isset($tag->name)): ?>
+                                    <span class="badge bg-primary"><?= htmlspecialchars($tag->name) ?></span>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            <em>No hay tags disponibles</em>
+                        <?php endif; ?>
+                    </p>
+
+                    </ul>
+
+                    
                    
                   
                     <div class="mb-3 row">

@@ -1,10 +1,20 @@
 <?php 
 
   include "../../app/config.php";
+  include "../../app/UserController.php";
 
+  $userController = new UserController();
+
+  $users = $userController->getAll();
+
+ 
 session_start();
 
 ?>
+
+
+
+
 <!doctype html>
 <html lang="en">
   <!-- [Head] start -->
@@ -89,10 +99,39 @@ session_start();
                           <img src="<?= BASE_PATH ?>assets/images/user/avatar-8.jpg" alt="image" class="img-prod img-fluid" />
                         </a>
                         
-                      <div class="col">
+
+                        <div class="row g-4">
+                        <?php foreach ($users as $user): ?>
+    <?php if (is_object($user)): ?> <!-- Cambiado de is_string a is_object -->
+        <div class="col-md-4">
+            <div class="card card-custom">
+                <a href="details/?slug=<?= urlencode($user->slug) ?>" class="text-decoration-none text-dark">
+                    <img src="<?= $user->avatar ?>" class="card-img-top" alt="<?= htmlspecialchars($user->name) ?>">
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title"><?= htmlspecialchars($user->name) ?></h5>
+                    <p class="card-text"><?= htmlspecialchars($user->lastname) ?></p>
+                    <button type="button" class="btn btn-primary w-50 py-3" data-bs-toggle="modal" data-bs-target="#editProductModal<?= $user->id ?>">Edit</button>
+
+                    <!-- Formulario para eliminar el producto -->
+                    <form method="POST" action="" style="display:inline-block;">
+                        <input type="hidden" name="action" value="delete_producto">
+                        <input type="hidden" name="product_id" value="<?= $user->id ?>">
+                        <button type="submit" class="btn btn-danger w-50 py-3" onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <?php else: ?>
+        <p>Error: Expected an object, but got <?= gettype($user) ?>.</p> <!-- Mensaje de error si no es un objeto -->
+    <?php endif; ?>
+<?php endforeach; ?>
+                      </div>
+                    
+                     <div class="col">
                       <div class="card-body">
                         <a href="<?= BASE_PATH ?>users/usersDetails">
-                          <p class="prod-content mb-0 text-muted">Ruben Abdel</p>
+                          <p class="prod-content mb-0 text-muted"> Ruben Abdel</p>
                         </a>
                         
                         <div class="d-flex">     
