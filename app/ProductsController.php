@@ -1,79 +1,79 @@
 <?php 
-	include 'config.php';
-	if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+include 'config.php';
+session_start();
+
+if (!isset($_SESSION['token'])) {
+    $_SESSION['token'] = 123;
+}
+
+if (isset($_POST['action'])) {
+    $productsController = new ProductsController();
+
+    switch ($_POST['action']) {
+        case 'crear_producto':
+            $name_var = $_POST['name'];
+            $slug_var = $_POST['slug'];
+            $description_var = $_POST['description'];
+            $features_var = $_POST['features'];
+            $brand_id = $_POST['brand_id'];
+            $cover = $_FILES['cover']['tmp_name'];
+            $categories = $_POST['categories'];
+            $tags = $_POST['tags'];
+
+            $productsController->create(
+                $name_var, $slug_var, $description_var, $features_var,
+                $brand_id, $cover, $categories, $tags
+            );
+            break;
+
+        case 'update_producto':
+            $product_id = $_POST['id'];
+            $name_var = $_POST['name'];
+            $slug_var = $_POST['slug'];
+            $description_var = $_POST['description'];
+            $features_var = $_POST['features'];
+            $brand_id = $_POST['brand_id'];
+            $categories = $_POST['categories'];
+            $tags = $_POST['tags'];
+            $cover = !empty($_FILES['cover']['tmp_name']) ? $_FILES['cover']['tmp_name'] : null;
+
+            $productsController->update(
+                $name_var, $slug_var, $description_var, $features_var,
+                $brand_id, $product_id, $cover, $categories, $tags
+            );
+            break;
+
+        case 'delete_producto':
+            $product_id = $_POST['product_id'];
+            $productsController->delete($product_id);
+            break;
     }
-
-	if (!isset($_SESSION['token'])) {
-		$_SESSION['token'] = 123;
-	}
-
-	if (isset($_POST['action'])) {
-		
-		switch ($_POST['action']) {
-			
-			case 'crear_producto':	
-				$name_var =  $_POST['name'];
-				$slug_var = $_POST['slug'];
-				$description_var = $_POST['description'];
-				$features_var = $_POST['features'];
-				$brand_id = $_POST['brand_id'];
-				$cover = $_FILES['cover']["tmp_name"];
-				$categories = $_POST['categories'];
-				$tags = $_POST['tags'];
-				$productsController = new ProductsController();
-				$productsController->create($name_var,$slug_var,$description_var,$features_var, $brand_id, $cover, $categories, $tags);
-			break; 
-
-			case 'update_producto':
-				$name_var =  $_POST['name'];
-				$slug_var = $_POST['slug'];
-				$description_var = $_POST['description'];
-				$features_var = $_POST['features'];
-				$brand_id = $_POST['brand_id'];
-				$product_id = $_POST['product_id'];
-				$categories = $_POST['categories'];
-				$tags = $_POST['tags'];
-				$productsController = new ProductsController();
-				$productsController->update($name_var,$slug_var,$description_var,$features_var, $brand_id, $product_id, $cover, $categories, $tags);
-			break; 
-
-			case 'delete_producto':
-				$product_id = $_POST['product_id'];
-				$productsController = new ProductsController();
-				$productsController->delete($product_id);
-			break; 
-		}
-	}
+}
 
 class ProductsController {
-	
-	public function get(){
-		$curl = curl_init();  
-			curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'GET',
-			CURLOPT_HTTPHEADER => array(
-				'Authorization: Bearer '.$_SESSION['user_data']->token
-			),
-		));
 
-		$response = curl_exec($curl);
-		curl_close($curl);  
-		$response = json_decode($response);
+    public function get() {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer '.$_SESSION['user_data']->token
+            ),
+        ));
 
-		if (isset($response->code) && $response->code > 0) {	
-			return $response->data;
-		}else{
-			return [];
-		}
-	}
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response);
+
+        return isset($response->code) && $response->code > 0 ? $response->data : [];
+    }
 
 	public function getBySlug($slug){
 		$curl = curl_init();  
@@ -101,118 +101,114 @@ class ProductsController {
 		}
 	}
 
-	public function create($name_var,$slug_var,$description_var,$features_var, $brand_id, $cover, $categories, $tags){
-		$data = array(
-			'name' => $name_var,
-			'slug' => $slug_var,
-			'description' => $description_var,
-			'features' => $features_var,
-			'brand_id' => $brand_id,
-			$data['cover'] = curl_file_create($cover, mime_content_type($cover), basename($cover))
-		);
+    public function create($name_var, $slug_var, $description_var, $features_var, $brand_id, $cover, $categories, $tags) {
+        $data = [
+            'name' => $name_var,
+            'slug' => $slug_var,
+            'description' => $description_var,
+            'features' => $features_var,
+            'brand_id' => $brand_id,
+            'cover' => curl_file_create($cover, mime_content_type($cover), basename($cover))
+        ];
 
-		$i = 0;
-		foreach ($categories as $category) {
-			$data['categories['.$i.']'] = intval($category);
-			$i++;
-		}
+        foreach ($categories as $i => $category) {
+            $data["categories[$i]"] = intval($category);
+        }
 
-		$j = 0;
-		foreach ($tags as $tag) {
-			$data['tags['.$j.']'] = intval($tag);
-			$j++;
-		}
+        foreach ($tags as $j => $tag) {
+            $data["tags[$j]"] = intval($tag);
+        }
 
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'POST',
-			CURLOPT_POSTFIELDS => $data,
-			CURLOPT_HTTPHEADER => array(
-				'Authorization: Bearer '.$_SESSION['user_data']->token
-			),
-		));
-		$response = curl_exec($curl); 
-		curl_close($curl);  
-		$response = json_decode($response);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => $data,
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer '.$_SESSION['user_data']->token
+            ),
+        ));
 
-		if (isset($response->code) && $response->code > 0) {
-			header("Location: " . BASE_PATH . "products");
-		}else{
-			header("Location: " . BASE_PATH . "home?error=1");
-		}
-	}
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response);
 
-	public function update($name_var,$slug_var,$description_var,$features_var, $brand_id, $product_id, $categories, $tags){
-		$curl = curl_init();
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'PUT',
-			CURLOPT_POSTFIELDS => 
-				'name='.$name_var.
-				'&slug='.$slug_var.
-				'&description='.$description_var.
-				'&features='.$features_var.
-				'&brand_id='.$brand_id.
-				'&id='.$product_id.
-				'&categories%5B0%5D='.$categories.
-				'&tags%5B0%5D='.$tags,
-			CURLOPT_HTTPHEADER => array(
-				'Content-Type: application/x-www-form-urlencoded',
-				'Authorization: Bearer '.$_SESSION['user_data']->token
-			),
-		));
+        header("Location: " . BASE_PATH . ($response->code > 0 ? "products" : "home?error=1"));
+    }
 
-		$response = curl_exec($curl); 
-		curl_close($curl);  
-		$response = json_decode($response);
+    public function update($name_var, $slug_var, $description_var, $features_var, $brand_id, $product_id, $cover, $categories, $tags) {
+        $data = [
+            'name' => $name_var,
+            'slug' => $slug_var,
+            'description' => $description_var,
+            'features' => $features_var,
+            'brand_id' => $brand_id,
+            'id' => $product_id,
+        ];
 
-		if (isset($response->code) && $response->code > 0) {
-			header("Location: " . BASE_PATH . "home");
-		}else{
-			header("Location: " . BASE_PATH . "home?error=1");
-		}
-	}
+        if ($cover) {
+            $data['cover'] = curl_file_create($cover, mime_content_type($cover), basename($cover));
+        }
 
-	public function delete($product_id){
-		$curl = curl_init();
+        foreach ($categories as $i => $category) {
+            $data["categories[$i]"] = intval($category);
+        }
 
-		curl_setopt_array($curl, array(
-			CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/'.$product_id,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_ENCODING => '',
-			CURLOPT_MAXREDIRS => 10,
-			CURLOPT_TIMEOUT => 0,
-			CURLOPT_FOLLOWLOCATION => true,
-			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-			CURLOPT_CUSTOMREQUEST => 'DELETE',
-			CURLOPT_HTTPHEADER => array(
-				'Authorization: Bearer '.$_SESSION['user_data']->token
-			),
-		));
+        foreach ($tags as $j => $tag) {
+            $data["tags[$j]"] = intval($tag);
+        }
 
-		$response = curl_exec($curl); 
-		curl_close($curl);  
-		$response = json_decode($response);
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'PUT',
+            CURLOPT_POSTFIELDS => http_build_query($data),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/x-www-form-urlencoded',
+                'Authorization: Bearer '.$_SESSION['user_data']->token
+            ),
+        ));
 
-		if (isset($response->code) && $response->code > 0) {
-			header("Location: " . BASE_PATH . "home");
-		}else{
-			header("Location: " . BASE_PATH . "home?error=1");
-		}
-	}
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response);
+
+        header("Location: " . BASE_PATH . ($response->code > 0 ? "products" : "home?error=1"));
+    }
+
+    public function delete($product_id) {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://crud.jonathansoto.mx/api/products/'.$product_id,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Authorization: Bearer '.$_SESSION['user_data']->token
+            ),
+        ));
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $response = json_decode($response);
+
+        header("Location: " . BASE_PATH . ($response->code > 0 ? "home" : "home?error=1"));
+    }
 }
-
 ?>

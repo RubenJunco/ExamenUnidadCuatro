@@ -58,6 +58,7 @@
             $response = curl_exec($curl);
             curl_close($curl);
             echo $response;
+            header('Location: ' . BASE_PATH . 'products');
         }
 
         public function getAllTags(){
@@ -128,6 +129,7 @@
 
             curl_close($curl);
             echo $response;
+            header('Location: ' . BASE_PATH . 'products');
         }
 
         public function deleteTag($id){
@@ -148,6 +150,7 @@
             $response = curl_exec($curl);
             curl_close($curl);
             echo $response;
+            header('Location: ' . BASE_PATH . 'products');
         }
 	}
 ?>
