@@ -13,7 +13,7 @@
 				$slug_var = $_POST['slug'];
 				$description_var = $_POST['description'];
 				$categoryController = new CategoryController();
-				$categoryController->newCategory($name, $description, $slug, $category_id);
+				$categoryController->newCategory($name_var, $description_var, $slug_var, $category_id);
 			break;
 
 			case 'update_category':
@@ -22,7 +22,7 @@
 				$slug_var = $_POST['slug'];
 				$description_var = $_POST['description'];
 				$categoryController = new CategoryController();
-				$categoryController->updateCategory($id, $name, $description, $slug, $category_id);
+				$categoryController->updateCategory($id, $name_var, $description_var, $slug_var, $category_id);
 			break;
 
 			case 'delete_category':
