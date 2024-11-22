@@ -106,7 +106,7 @@ session_start();
                     <h4>Email</h4>
                     <h5 class="my-3"><?php echo ($_SESSION["user_data"]->email); ?></h5>
                     <h4>Role</h4>
-                    <h5 class="my-3"><?php echo ($_SESSION["user_data"]->email); ?></h5>
+                    <h5 class="my-3"><?php echo ($_SESSION["user_data"]->role); ?></h5>
     
                     <hr>
                     <h2>Specific information</h2>
