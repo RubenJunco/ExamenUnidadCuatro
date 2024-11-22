@@ -73,6 +73,7 @@
                </div>
                <div class="ecom-content">
                <div class="row">
+                
                 <?php if (isset($users) && count($users)): ?>
                     <?php foreach ($users as $user): ?>
                         <!-- [ sample-page ] start -->
@@ -105,6 +106,7 @@
                                     </div>
                                     <div class="d-flex justify-content-around">
                                         
+
                                         
                                   
                                     </div>
@@ -119,92 +121,59 @@
          <!-- [ Main Content ] end -->
       </div>
       </div>
-      <!--Agregar Ususario-->
+      
+
+      <!--Añadir Ususario---->
       <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-         <div class="modal-dialog">
-            <div class="modal-content">
-               <div class="modal-header">
-                  <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-               </div>
-               <form action="ruta_a_tu_controlador_usuario.php" method="POST">
-                  <div class="modal-body">
-                     <div class="mb-3">
-                        <label for="userName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName" required>
-                     </div>
-                     <div class="mb-3">
-                        <label for="userLastname" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" id="userLastname" name="userLastname" required>
-                     </div>
-                     <div class="mb-3">
-                        <label for="userEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="userEmail" name="userEmail" required>
-                     </div>
-                     <div class="mb-3">
-                        <label for="userRole" class="form-label">Rol</label>
-                        <select class="form-control" id="userRole" name="userRole" required>
-                           <option value="">Select a role</option>
-                           <option value="admin">Admin</option>
-                           <option value="editor">Editor</option>
-                           <option value="viewer">Viewer</option>
-                        </select>
-                     </div>
-                     <div class="mb-3">
-                        <label for="createdBy" class="form-label">Created by</label>
-                        <input type="text" class="form-control" id="createdBy" name="createdBy" required>
-                     </div>
-                  </div>
-                  <div class="modal-footer">
-                     <button type="submit" class="btn btn-primary">Save User</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
-      <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
          <div class="modal-dialog">
             <div class="modal-content">
                <div class="modal-header">
                   <h5 class="modal-title" id="editUserModalLabel">Edit Users</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                </div>
-               <form action="ruta_a_tu_controlador_editar_usuario.php" method="POST">
+               <form action="../../app/UserController.php" method="POST">
                   <div class="modal-body">
-                     <input type="hidden" id="userId" name="userId" value="">
+                     
                      <div class="mb-3">
-                        <label for="editUserName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="editUserName" name="userName" required>
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                      </div>
                      <div class="mb-3">
-                        <label for="editUserLastname" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" id="editUserLastname" name="userLastname" required>
+                        <label for="lastname" class="form-label">Lastname</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" required>
                      </div>
                      <div class="mb-3">
-                        <label for="editUserEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="editUserEmail" name="userEmail" required>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                      </div>
                      <div class="mb-3">
-                        <label for="editUserRole" class="form-label">Rol</label>
-                        <select class="form-control" id="editUserRole" name="userRole" required>
-                           <option value="">Seleccione un rol</option>
-                           <option value="admin">Admin</option>
-                           <option value="editor">Editor</option>
-                           <option value="viewer">viewer</option>
-                        </select>
+                        <label for="phone_number" class="form-label">Number</label>
+                        <input type="number" class="form-control" id="phone_number" name="phone_number" required>
                      </div>
                      <div class="mb-3">
-                        <label for="editCreatedBy" class="form-label">Created Por</label>
-                        <input type="text" class="form-control" id="editCreatedBy" name="createdBy" required>
+                        <label for="created" class="form-label">Created by</label>
+                        <input type="text" class="form-control" id="created" name="created" required>
                      </div>
+                     <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                     </div>
+                  
                   </div>
                   <div class="modal-footer">
                      <button type="submit" class="btn btn-primary">Save Cambios</button>
+                     <input type="hidden" name="action" value="new_user">
+                     
                   </div>
                </form>
             </div>
          </div>
       </div>
+
+
+                    
+
+
       <!-- [ Main Content ] end -->
       <?php include "../layouts/footer.php" ?> 
       <?php include "../layouts/scripts.php" ?> 

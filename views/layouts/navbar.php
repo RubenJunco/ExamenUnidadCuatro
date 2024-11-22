@@ -288,7 +288,7 @@
                 </li>
                 
                 <li class="list-group-item">
-                  <a href="#" class="dropdown-item">
+                  <a href="../views/users/profile.php" class="dropdown-item">
                     <span class="d-flex align-items-center">
                       <i class="ph-duotone ph-user-circle"></i>
                       <span>Details profile</span>
@@ -315,9 +315,9 @@
                       event.preventDefault(); 
 
                       Swal.fire({
-                        title: "Te vas?",
-                        text: "Que bueno",
-                        icon: "question"
+                        title: "Acabas de cerrar sesion",
+                        text: "Recuerda cerrar la puerta despues de salir",
+                        icon: "info"
                       }).then((result) => {
                       
                         if (result.isConfirmed) {

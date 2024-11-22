@@ -78,43 +78,49 @@
                   </div>
                 </div>
               </div>
-              <div class="ecom-content"> 
-                
+              <div class="ecom-content">
                 <div class="row">
-                  <div class="col-sm-6 col-xl-2">
-                            <?php if (isset($clientes) && count($clientes)): ?>
-                                <?php foreach ($clientes as $client) : ?>
-                                <div class="card product-card">
-                                  <div class="card-img-top">
-
-                                    <a href="<?= BASE_PATH ?>clients/clientDetails">
-                                      <img src="<?= BASE_PATH ?>assets/images/user/avatar-2.jpg" alt="image" class="img-prod img-fluid" />
-                                    </a>
-                                    
-                                  </div>
-                                  <div class="card-body flex">
-                                    <a href="<?= BASE_PATH ?>clients/clientDetails">
-                                      <p class="prod-content mb-0 text-muted"><?php echo $client['name']; ?></p>
-                                      <h6 class="mb-0"><b> <?php echo $client['email']; ?> </b></h6>
-                                    </a>
-                                    
-                                    <div class="d-flex">     
-                                      <div class="flex-grow-1 ms-3">
-                                        <div class="d-flex gap-2">
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                                            Edit
-                                        </button>
-                                          <button type="button"  class="btn btn-danger">Delete</button>
+                    <?php if (isset($clientes) && count($clientes)): ?>
+                        <?php foreach ($clientes as $client): ?>
+                            <!-- [ sample-page ] start -->
+                            <div class="col-md-6 col-xl-4">
+                                <div class="card user-card shadow-sm">
+                                    <div class="card-body">
+                                        <div class="position-relative">
+                                            <img src="<?= BASE_PATH ?>assets/images/application/img-user-cover-1.jpg" alt="cover-image" class="img-fluid rounded-top" />
+                                            <div class="position-absolute bottom-0 start-0 p-2 bg-dark bg-opacity-50 rounded text-white d-inline-flex align-items-center">
+                                                <i class="ph-duotone ph-star text-warning me-1"></i>
+                                                4.5 <small class="text-white text-opacity-75 ms-1">/ 5</small>
+                                            </div>
                                         </div>
-                                      </div>
+                                        <div class="position-relative text-center mt-n5">
+                                            <img src="<?= BASE_PATH ?>assets/images/user/avatar-2.jpg" alt="Client Image" class="img-thumbnail rounded-circle border border-3 border-white" style="width: 80px; height: 80px;">
+                                            <i class="bg-success position-absolute bottom-0 end-0 border border-white rounded-circle" style="width: 12px; height: 12px;"></i>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <h6 class="mb-0"><?php echo $client['name']; ?></h6>
+                                            <p class="text-muted text-sm mb-1"><a href="#" class="text-primary"><?php echo $client['email']; ?></a></p>
+                                        </div>
+                                        <div class="border-top border-light my-3 pt-2 text-center"></div>
+                                        
+                                        <div class="d-flex justify-content-around">
+                                            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                                Edit
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-danger">
+                                                Delete
+                                            </button>
+                                        </div>
                                     </div>
-                                  </div>
                                 </div>
-                              <?php endforeach; ?>
-                            <?php endif; ?>
-                          </div>
-                          </div>
-                        </div>
+                            </div>
+                            <!-- [ sample-page ] end -->
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+
                       </div>
                     </div>
                   </div>
@@ -190,41 +196,41 @@
                 <h5 class="modal-title" id="addUserModalLabel">Add User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="ruta_a_tu_controlador_usuario.php" method="POST">
+            <form action="../../app/clientController.php" method="POST">
                 <div class="modal-body">
               
                     <div class="mb-3">
-                        <label for="userName" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="userName" name="userName" required>
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                   
                     <div class="mb-3">
-                        <label for="userLastname" class="form-label">Lastname</label>
-                        <input type="text" class="form-control" id="userLastname" name="userLastname" required>
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                    
                     <div class="mb-3">
-                        <label for="userEmail" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="userEmail" name="userEmail" required>
+                        <label for="password" class="form-label">password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                   
                     <div class="mb-3">
-                        <label for="userRole" class="form-label">Rol</label>
-                        <select class="form-control" id="userRole" name="userRole" required>
-                            <option value="">Select a role</option>
-                            <option value="admin">Admin</option>
-                            <option value="editor">Editor</option>
-                            <option value="viewer">Viewer</option>
-                            
-                        </select>
+                        <label for="phone_number" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" id="phone_number" name="phone_number" required>
                     </div>
                     <div class="mb-3">
-                        <label for="createdBy" class="form-label">Created by</label>
-                        <input type="text" class="form-control" id="createdBy" name="createdBy" required>
+                        <label for="is_suscribed" class="form-label">Is Suscribed</label>
+                        <input type="text" class="form-control" id="is_suscribed" name="is_suscribed" required>
                     </div>
+                    <div class="mb-3">
+                        <label for="level_id" class="form-label">level id</label>
+                        <input type="text" class="form-control" id="level_id" name="level_id" required>
+                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save User</button>
+                    <input type="hidden" name="action" value="new_client">
                 </div>
             </form>
         </div>

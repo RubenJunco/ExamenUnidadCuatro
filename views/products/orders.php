@@ -1,7 +1,20 @@
 <?php 
 
   include "../../app/config.php";
+  include "../../app/OrdersController.php";
+  include "../../app/clientController.php";
+  include "../../app/AddressController.php";
+  include "../../app/CuoponsController.php";
 
+  $ordersController = new OrdersController();
+  $clientController = new ClientController();
+  $addresController = new AddressController();
+  $cuoponsController = new CuoponsController();
+
+  $ordersArray = $ordersController->getAll();
+  $ordenes = $ordersArray['data'];
+
+  var_dump($cliente);
 session_start();
 
 ?>
@@ -62,26 +75,8 @@ session_start();
 
                         <div class="card">
                         
-                        <li class="list-group-item border-0 px-0 py-2" style="width: 550px; height: auto;">
-                          <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse2 " >
-                            <div class="float-end" style="width: 300px; height: 10px;"><i class="ti ti-chevron-down ms-3 " ></i></div> 
-                            Order by:
-                          </a>
-                          <div class="collapse show" id="filtercollapse2" >
-                            <div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="categoryfilter1" value="option1" />
-                                <label class="form-check-label" for="categoryfilter1">Date</label>
-                              </div>
-                              <div class="form-check my-2 ms-2">
-                                <input class="form-check-input" type="checkbox" id="categoryfilter2" value="option2" />
-                                <label class="form-check-label" for="categoryfilter2">Default</label>
-                              </div>
-                          
-                              </div>
-                            </div>
-                          </div>
-                          <hr>
+                        <li class="border-0 px-0 py-2" style="width: 550px; height: auto;">
+                          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOrderModal">Añadir</button>
                         </li>
                       </ul>
                     </div>
@@ -94,64 +89,114 @@ session_start();
                 
                 <div class="row">
                   <div class="col-sm-6 col-xl-4">
-                    <div class="card product-card">
-                      <div class="card-img-top">
+                    <?php foreach ($ordenes as $orden) : ?>
+                      <div class="card product-card">
+                        <div class="card-img-top">
 
-                      
-                        <a href="details">
-                          <img src="<?= BASE_PATH ?>assets/images/application/img-prod-3.jpg" alt="image" class="img-prod img-fluid" />
-                        </a>
-                        
-                      </div>
-                      <div class="card-body">
-                        <h3>Informacion of the orther</h3>
-                        <a>
-                          <p class="prod-content mb-0 text-muted">Zapatos</p>
-                        </a>
-                        <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
-                          <h4 class="mb-0 text-truncate">
-                             <b>$2369.00</b> 
-                            </h4>
-
-                        </div>
-
-                        <div>
-                        <h4>Client</h4>
-                        <h5>bob</h5>
-                        </div>
-
-                        <div>
-                        <h4>Mailing address</h4>
-                        <h4>Main street</h4>
-                        <h5>Santa Claudia</h5>
-                        <h4>Colony</h4>
-                        <h5>Americas</h5>
-                        <h4>Postal Code</h4>
-                        <h5>6969</h5>
-                        <h4>Numbre</h4>
-                        <h5>6123454795</h5>
-                        <h4>City</h4>
-                        <h5>La Mulege</h5>
-                        </div>
-
-                        <div>
-                        <h4>Cupon:</h4>
-                        <h5>none</h5>
-                        </div>    
-
-                        <div class="d-flex">
                           
-                          <div class="flex-grow-1 ms-3">
-                          <div class="d-flex gap-2">
-                          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
-                              Edit
-                          </button>
-                              <button type="button"  class="btn btn-danger">Delete</button>
+                        </div>
+                        <div class="card-body">
+                          <h3>Informacion de la compra</h3>
+                          
+                          <div class="d-flex align-items-center justify-content-between mt-2 mb-3 flex-wrap gap-1">
+                            <h4 class="mb-0 text-truncate">
+                              <b><?= "$" . $orden['total'] ?></b> 
+                              </h4>
+
+                          </div>
+
+                          <div>
+                          <h4>Cliente:</h4>
+                          <h5>
+                          <?php 
+                            $nombreCliente = $clientController->getClient($orden['client_id']);
+                            $cliente = $nombreCliente['data'];
+
+                            $clienteDireccion = $addresController->getAddressByClient($orden['address_id']);
+                            $calle = $clienteDireccion['data'];
+
+                            $cuponOrden = $cuoponsController->getCuopon($orden['coupon_id']);
+                            $cupon = $cuponOrden['data'];
+
+                            if ($cliente['name'] == null) {
+                              echo "Sin nombre";
+                            }else{
+                              echo $cliente['name']; 
+                            }
+                          ?>
+                          </h5>
+                          </div>
+
+                          <div>
+                          <h4>Calle principal:</h4>
+                          <h5>
+                            <?php 
+                              if ($calle['street_and_use_number'] == null) {
+                                echo "Sin calle";
+                              }else{
+                                echo $calle['street_and_use_number']; 
+                              }
+                            ?>
+                          </h5>
+                          <h4>Codigo postal:</h4>
+                          <h5>
+                            <?php 
+                              if ($calle['postal_code'] == null) {
+                                echo "Sin codigo postal";
+                              }else{
+                                echo $calle['postal_code']; 
+                              }
+                            ?>
+                          </h5>
+                          <h4>Numero:</h4>
+                          <h5>
+                            <?php 
+                              if ($cliente['phone_number'] == null) {
+                                echo "Sin numero";
+                              }else{
+                                echo $cliente['phone_number']; 
+                              }
+                            ?>
+                          </h5>
+                          <h4>Ciudad:</h4>
+                          <h5>
+                            <?php 
+                              if ($calle['city'] == null) {
+                                echo "Sin ciudad";
+                              }else{
+                                echo $calle['city']; 
+                              }
+                            ?>
+                          </h5>
+                          </div>
+
+                          <div>
+                          <h4>Cupon:</h4>
+                          <h5>
+                            <?php
+                              if ($cupon['name'] == null) {
+                                echo "Sin cupon";
+                              }else{
+                                echo $cupon['name']; 
+                              }
+                            ?>
+                          </h5>
+                          </div>    
+
+                          <div class="d-flex">
+                            
+                            <div class="flex-grow-1 ms-3">
+                            <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editProductModal">
+                                Edit
+                            </button>
+                                <button type="button"  class="btn btn-danger">Delete</button>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    <?php endforeach; ?>
                   </div>
                           </div>
                         </div>
@@ -243,6 +288,100 @@ session_start();
       </div>
     </div>
     <!-- [ Main Content ] end -->
+
+    <div class="modal fade" id="addOrderModal" tabindex="-1" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addOrderModalLabel">Añadir Orden</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="add_order_controller.php" method="POST">
+                <div class="modal-body">
+                    <!-- Folio -->
+                    <div class="mb-3">
+                        <label for="folio" class="form-label">Folio</label>
+                        <input type="text" class="form-control" id="folio" name="folio" required>
+                    </div>
+                    <!-- Total -->
+                    <div class="mb-3">
+                        <label for="total" class="form-label">Total</label>
+                        <input type="number" step="0.01" class="form-control" id="total" name="total" required>
+                    </div>
+                    <!-- Is Paid -->
+                    <div class="mb-3">
+                        <label for="is_paid" class="form-label">¿Pagado?</label>
+                        <select class="form-control" id="is_paid" name="is_paid" required>
+                            <option value="1">Sí</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <!-- Client ID -->
+                    <div class="mb-3">
+                        <label for="client_id" class="form-label">Cliente</label>
+                        <input type="text" class="form-control" id="client_id" name="client_id" required>
+                    </div>
+                    <!-- Address ID -->
+                    <div class="mb-3">
+                        <label for="address_id" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="address_id" name="address_id" required>
+                    </div>
+                    <!-- Order Status ID -->
+                    <div class="mb-3">
+                        <label for="order_status_id" class="form-label">Estado de la Orden</label>
+                        <input type="text" class="form-control" id="order_status_id" name="order_status_id" required>
+                    </div>
+                    <!-- Payment Type ID -->
+                    <div class="mb-3">
+                        <label for="payment_type_id" class="form-label">Tipo de Pago</label>
+                        <input type="text" class="form-control" id="payment_type_id" name="payment_type_id" required>
+                    </div>
+                    <!-- Coupon ID -->
+                    <div class="mb-3">
+                        <label for="coupon_id" class="form-label">Cupón</label>
+                        <input type="text" class="form-control" id="coupon_id" name="coupon_id">
+                    </div>
+                    <!-- Presentations -->
+                    <div id="presentations">
+                        <h5>Presentaciones</h5>
+                        <div class="presentation mb-3">
+                            <label for="presentations[0][id]" class="form-label">ID Presentación</label>
+                            <input type="text" class="form-control" name="presentations[0][id]" required>
+                            <label for="presentations[0][quantity]" class="form-label">Cantidad</label>
+                            <input type="number" class="form-control" name="presentations[0][quantity]" required>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-secondary" id="addPresentation">Añadir Presentación</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Guardar Orden</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('newOrderForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      formData.append('action', 'new_order');
+
+      fetch('../app/OrdersController.php', {
+        method: 'POST',
+        body: formData,
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Orden creada:', data);
+          const modal = bootstrap.Modal.getInstance(document.getElementById('addOrderModal'));
+          modal.hide();
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
     <div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
