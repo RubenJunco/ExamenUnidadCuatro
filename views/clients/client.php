@@ -1,9 +1,11 @@
 <?php 
 
   include "../../app/config.php";
-  session_start();
+  include "../../app/clientController.php";
 
-
+  $clientController = new ClientController();
+  $clientesArray = $clientController->getAll();
+  $clientes = $clientesArray['data'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -80,32 +82,37 @@
                 
                 <div class="row">
                   <div class="col-sm-6 col-xl-2">
-                    <div class="card product-card">
-                      <div class="card-img-top">
+                            <?php if (isset($clientes) && count($clientes)): ?>
+                                <?php foreach ($clientes as $client) : ?>
+                                <div class="card product-card">
+                                  <div class="card-img-top">
 
-                        <a href="<?= BASE_PATH ?>clients/clientDetails">
-                          <img src="<?= BASE_PATH ?>assets/images/user/avatar-2.jpg" alt="image" class="img-prod img-fluid" />
-                        </a>
-                        
-                      </div>
-                      <div class="card-body">
-                        <a href="<?= BASE_PATH ?>clients/clientDetails">
-                          <p class="prod-content mb-0 text-muted">Pepe Valve</p>
-                        </a>
-                        
-                        <div class="d-flex">     
-                          <div class="flex-grow-1 ms-3">
-                            <div class="d-flex gap-2">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
-                                Edit
-                            </button>
-                              <button type="button"  class="btn btn-danger">Delete</button>
-                            </div>
+                                    <a href="<?= BASE_PATH ?>clients/clientDetails">
+                                      <img src="<?= BASE_PATH ?>assets/images/user/avatar-2.jpg" alt="image" class="img-prod img-fluid" />
+                                    </a>
+                                    
+                                  </div>
+                                  <div class="card-body flex">
+                                    <a href="<?= BASE_PATH ?>clients/clientDetails">
+                                      <p class="prod-content mb-0 text-muted"><?php echo $client['name']; ?></p>
+                                      <h6 class="mb-0"><b> <?php echo $client['email']; ?> </b></h6>
+                                    </a>
+                                    
+                                    <div class="d-flex">     
+                                      <div class="flex-grow-1 ms-3">
+                                        <div class="d-flex gap-2">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editUserModal">
+                                            Edit
+                                        </button>
+                                          <button type="button"  class="btn btn-danger">Delete</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              <?php endforeach; ?>
+                            <?php endif; ?>
                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                           </div>
                         </div>
                       </div>

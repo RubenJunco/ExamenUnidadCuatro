@@ -109,7 +109,6 @@ $brands = $brandsController->getAll();
                                       <option value="<?= $categoria['id'] ?>"><?= $categoria['name'] ?></option>
                                     <?php endforeach; ?>
                                
-
                                   </select>
                                   </div>
                                   <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
@@ -155,13 +154,13 @@ $brands = $brandsController->getAll();
                               <?php endforeach; ?>
                             </select>
                             </div>
-                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addModal2">
-                                Add tag
+                            <button type="button" class="btn btn-primary ms-2" data-bs-toggle="modal" data-bs-target="#addTagModal">
+                                Add Tag
                             </button>
                           </div>
 
 
-                           <!--brans-->
+                           
                         <a class="btn border-0 px-0 text-start w-100 pb-0 ms-2" data-bs-toggle="collapse" href="#filtercollapse" >
                             <h4>Brans available</h4>
                           </a>
@@ -488,7 +487,7 @@ $brands = $brandsController->getAll();
 
 
 
-          <!-- agregar categorias-->      
+          <!-- agregar cupon-->      
           <div class="modal fade" id="addModal2" tabindex="-1" aria-labelledby="addModal2Label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -496,26 +495,57 @@ $brands = $brandsController->getAll();
                 <h5 class="modal-title" id="addModal2Label">Add Cupón</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="ruta_a_tu_controlador.php" method="POST">
+            <form action="../../app/CuoponsController.php" method="POST">
                 <div class="modal-body">
                   
                     <div class="mb-3">
-                        <label for="cuponName" class="form-label">Name of Cupón</label>
-                        <input type="text" class="form-control" id="cuponName" name="cuponName" required>
+                        <label for="name" class="form-label">Name of Cupón</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
-                  
                     <div class="mb-3">
-                        <label for="cuponDiscount" class="form-label">Discount (%)</label>
-                        <input type="number" class="form-control" id="cuponDiscount" name="cuponDiscount" min="1" max="100" required>
+                        <label for="code" class="form-label">Code of Cupón</label>
+                        <input type="text" class="form-control" id="code" name="code" required>
                     </div>
-                  
                     <div class="mb-3">
-                        <label for="cuponExpiry" class="form-label">Expiration date</label>
-                        <input type="date" class="form-control" id="cuponExpiry" name="cuponExpiry" required>
+                        <label for="percentage_discount" class="form-label">Percentage Discount</label>
+                        <input type="text" class="form-control" id="percentage_discount" name="percentage_discount" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="min_amount_required" class="form-label">Min Amount Required</label>
+                        <input type="text" class="form-control" id="min_amount_required" name="min_amount_required" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="min_product_required" class="form-label">Min Product Required</label>
+                        <input type="text" class="form-control" id="min_product_required" name="min_product_required" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="start_date" class="form-label">Start Date</label>
+                        <input type="text" class="form-control" id="start_date" name="start_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="end_date" class="form-label">End Date</label>
+                        <input type="text" class="form-control" id="end_date" name="end_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="max_uses" class="form-label">Max Uses</label>
+                        <input type="text" class="form-control" id="max_uses" name="max_uses" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="count_uses" class="form-label">Count Uses</label>
+                        <input type="text" class="form-control" id="count_uses" name="count_uses" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="valid_only_first_purchase" class="form-label">Valid Only First Purchase</label>
+                        <input type="text" class="form-control" id="valid_only_first_purchase" name="valid_only_first_purchase" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <input type="text" class="form-control" id="status" name="status" required>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save Coupon</button>
+                    <input type="hidden" name="action" value="new_cuopon">
                 </div>
             </form>
         </div>
@@ -524,29 +554,73 @@ $brands = $brandsController->getAll();
 
           <!--agregar categoria-->
 
-          <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true">
+          <div class="modal fade" id="addCategoryModal" tabindex="-1" aria-labelledby="addCategoryModalLabel" aria-hidden="true"> 
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="addCategoryModalLabel">Add Category</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="ruta_a_tu_controlador_categorias.php" method="POST">
+            <form action="../../app/CategoryController.php" method="POST">
                 <div class="modal-body">
-                    
                     <div class="mb-3">
                         <label for="categoryName" class="form-label">Category Name</label>
-                        <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                        <input type="text" class="form-control" id="name" name="name" required>
                     </div>
-                    
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug</label>
+                        <input type="text" class="form-control" id="slug" name="slug" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                    </div>
+                    <!-- Variable para category_id -->
+                    <input type="hidden" name="category_id" value="0">
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Save Category</button>
+                    <input type="hidden" name="action" value="create_category">
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+
+ <!--agregar tag-->
+
+ <div class="modal fade" id="addTagModal" tabindex="-1" aria-labelledby="addTagModalLabel" aria-hidden="true"> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTagModalLabel">Add Tag</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="../../app/TagsController.php" method="POST">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="tagName" class="form-label">Tag Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug</label>
+                        <input type="text" class="form-control" id="slug" name="slug" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save Tag</button>
+                    <input type="hidden" name="action" value="new_tag">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <!-- [ Main Content ] end -->
     
     <?php include "../layouts/footer.php" ?> 
